@@ -58,11 +58,11 @@ For $i = 1 To UBound($aFiles, 1)-1 Step +1
             ConsoleWrite(".")
         Case $AU3UNIT_EXITCODE_FAIL
             $aResults[$AU3UNIT_RESULT_FAILED] += 1
-            DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", BitOR($FOREGROUND_INTENSITY, $BACKGROUND_RED))
+            DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", BitOR($FOREGROUND_RED, $FOREGROUND_GREEN, $FOREGROUND_BLUE, $FOREGROUND_INTENSITY, $BACKGROUND_RED))
             ConsoleWrite("F")
         Case Else
             $aResults[$AU3UNIT_RESULT_ERROR] += 1
-            DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", BitOR($FOREGROUND_INTENSITY, $BACKGROUND_GREEN, $BACKGROUND_RED))
+            DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", BitOR($BACKGROUND_GREEN, $BACKGROUND_RED))
             ConsoleWrite("E")
     EndSwitch
 Next
