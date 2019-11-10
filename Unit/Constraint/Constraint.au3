@@ -14,7 +14,6 @@ Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = ""
 		Call("Au3UnitConstraint" & $constraint & "_Fail", $other, $description, Null, $line)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_Fail", $constraint, $other, $description, Null, $line, $passedToContraint)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Exit MsgBox(0, "Au3Unit", "Au3UnitConstraintConstraint_Fail function is missing"&@CRLF&"Exitting") + 1
-		If $CmdLine[0]>0 And $CmdLine[1] == "external" Then Exit @error
 		Return SetError(@error)
 	EndIf
 EndFunc
