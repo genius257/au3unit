@@ -65,8 +65,6 @@ For $i = 1 To UBound($aFiles, 1)-1 Step +1
             DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", BitOR($FOREGROUND_INTENSITY, $BACKGROUND_GREEN, $BACKGROUND_RED))
             ConsoleWrite("E")
     EndSwitch
-
-    ;ConsoleWrite($exitCode&@CRLF)
 Next
 
 DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", $tConsoleScreenBufferInfo.wAttributes)
