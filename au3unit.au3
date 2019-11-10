@@ -35,7 +35,7 @@ For $i = 1 To UBound($aFiles, 1)-1 Step +1
 
     $workingDir = _WinAPI_PathRemoveFileSpec($sFile)
 
-    $iPID = Run(@ScriptDir & "\..\au3pm\autoit\AutoIt3.exe /ErrorStdOut " & '"' & $sFile & '"' & " external", $workingDir, @SW_HIDE, $STDOUT_CHILD + $STDERR_CHILD + $RUN_CREATE_NEW_CONSOLE)
+    $iPID = Run(@ScriptDir & "\..\au3pm\autoit\AutoIt3.exe /ErrorStdOut " & '"' & $sFile & '"' & " external", $workingDir, @SW_HIDE, $STDOUT_CHILD + $STDERR_CHILD)
 
     Global $hProcess
     If _WinAPI_GetVersion() >= 6.0 Then
