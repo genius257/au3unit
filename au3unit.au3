@@ -3,6 +3,7 @@
 #include <WinAPI.au3>
 #include <WinAPIShPath.au3>
 #include <ProcessConstants.au3>
+#include ".\Unit\assert.au3"
 
 Global Const $FOREGROUND_BLUE =      0x0001
 Global Const $FOREGROUND_GREEN =     0x0002
@@ -55,7 +56,7 @@ For $i = 1 To UBound($aFiles, 1)-1 Step +1
             $aResults[$AU3UNIT_RESULT_PASSED] += 1
             $aRet = DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", $tConsoleScreenBufferInfo.wAttributes)
             ConsoleWrite(".")
-        Case 1
+        Case $AU3UNIT_EXITCODE_FAIL
             $aResults[$AU3UNIT_RESULT_FAILED] += 1
             DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", BitOR($FOREGROUND_INTENSITY, $BACKGROUND_RED))
             ConsoleWrite("F")

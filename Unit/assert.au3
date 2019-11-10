@@ -2,6 +2,7 @@
 ; https://github.com/sebastianbergmann/phpunit/blob/7.2/src/Framework/Assert.php
 
 Global $Au3UnitAssertCount = 0
+Global Const $AU3UNIT_EXITCODE_FAIL = 0x3DE2
 
 #include "Constraint\Constraint.au3"
 #include "Constraint\IsType.au3"
@@ -11,6 +12,7 @@ Func assertThat($value, $constraint, $message = "", $line = @ScriptLineNumber, $
 	$Au3UnitAssertCount += IsDeclared($constraintCount) ? Eval($constraintCount) : $Au3UnitConstraintCount
 	Call("Au3UnitConstraint" & $constraint & "_Evaluate", $value, $message, False, $line, $passedToContraint)
 	If @error==0xDEAD And @extended==0xBEEF Then Call("Au3UnitConstraintConstraint_Evaluate", $constraint, $value, $message, False, $line, $passedToContraint)
+	If @error <> 0 And $CmdLine[0]>0 And $CmdLine[1] == "external" Then Exit $AU3UNIT_EXITCODE_FAIL
 	Return SetError(@error)
 EndFunc
 
