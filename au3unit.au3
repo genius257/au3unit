@@ -4,8 +4,6 @@
 #include <WinAPIShPath.au3>
 #include <ProcessConstants.au3>
 
-#RequireAdmin
-
 Global Const $FOREGROUND_BLUE =      0x0001
 Global Const $FOREGROUND_GREEN =     0x0002
 Global Const $FOREGROUND_RED =       0x0004
