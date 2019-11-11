@@ -1,0 +1,7 @@
+{
+  "name": "au3unit",
+  "version": "1.0.0-rc",
+  "dependencies": {
+    "autoit": ">=3.3.14.5"
+  }
+}
