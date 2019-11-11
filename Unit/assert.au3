@@ -1,6 +1,9 @@
 #include-once
 ; https://github.com/sebastianbergmann/phpunit/blob/7.2/src/Framework/Assert.php
 
+#include <WinAPI.au3>
+#include <WinAPIFiles.au3>
+
 Global $Au3UnitAssertCount = 0
 Global Const $AU3UNIT_EXITCODE_FAIL = 0x3DE2
 
@@ -10,6 +13,17 @@ Global Const $AU3UNIT_EXITCODE_FAIL = 0x3DE2
 Func assertThat($value, $constraint, $message = "", $line = @ScriptLineNumber, $passedToContraint = Null)
 	Local $constraintCount = "Au3UnitConstraint" & $constraint & "Count"
 	$Au3UnitAssertCount += IsDeclared($constraintCount) ? Eval($constraintCount) : $Au3UnitConstraintCount
+
+	If $CmdLine[0]>1 And $CmdLine[1] == "external" Then
+		Local $hMapping = _WinAPI_OpenFileMapping($CmdLine[2])
+		Local $pMapping = _WinAPI_MapViewOfFile($hMapping)
+		Local $tMapping = DllStructCreate("UINT64 count", $pMapping)
+		$tMapping.count += 1
+		$tMapping = Null
+		_WinAPI_UnmapViewOfFile($pMapping)
+		_WinAPI_CloseHandle($hMapping)
+	EndIf
+
 	Call("Au3UnitConstraint" & $constraint & "_Evaluate", $value, $message, False, $line, $passedToContraint)
 	If @error==0xDEAD And @extended==0xBEEF Then Call("Au3UnitConstraintConstraint_Evaluate", $constraint, $value, $message, False, $line, $passedToContraint)
 	If @error <> 0 And $CmdLine[0]>0 And $CmdLine[1] == "external" Then Exit $AU3UNIT_EXITCODE_FAIL

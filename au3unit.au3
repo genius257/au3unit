@@ -3,6 +3,7 @@
 #include <WinAPI.au3>
 #include <WinAPIShPath.au3>
 #include <ProcessConstants.au3>
+#include <Date.au3>
 #include ".\Unit\assert.au3"
 
 Global Const $FOREGROUND_BLUE =      0x0001
@@ -30,12 +31,17 @@ $aRet = DllCall("Kernel32.dll", "BOOL", "GetConsoleScreenBufferInfo", "PTR", $hC
 
 Global $output = ""
 
+Global $sMapping = 'au3unit'&au3unit_unixTimestamp()
+Global $hMapping = _WinAPI_CreateFileMapping(-1, 8, $sMapping)
+Global $pMapping = _WinAPI_MapViewOfFile($hMapping)
+Global $tMapping = DllStructCreate("UINT64 count", $pMapping)
+
 For $i = 1 To UBound($aFiles, 1)-1 Step +1
     $sFile = $aFiles[$i]
 
     $workingDir = _WinAPI_PathRemoveFileSpec($sFile)
 
-    $iPID = Run(@ScriptDir & "\..\au3pm\autoit\AutoIt3.exe /ErrorStdOut " & '"' & $sFile & '"' & " external", $workingDir, @SW_HIDE, $STDOUT_CHILD + $STDERR_CHILD)
+    $iPID = Run(@ScriptDir & "\..\au3pm\autoit\AutoIt3.exe /ErrorStdOut " & '"' & $sFile & '"' & " external "&$sMapping, $workingDir, @SW_HIDE, $STDOUT_CHILD + $STDERR_CHILD)
 
     Global $hProcess
     If _WinAPI_GetVersion() >= 6.0 Then
@@ -45,7 +51,7 @@ For $i = 1 To UBound($aFiles, 1)-1 Step +1
     EndIf
     ProcessWaitClose($iPID)
     $output &= StderrRead($iPID)
-    $output &= StdoutRead($iPID) ; Capture any remaining output
+    $output &= StdoutRead($iPID)
     Global $exitCode = DllCall("kernel32.dll", "bool", "GetExitCodeProcess", "HANDLE", $hProcess, "dword*", -1)[2]
     _WinAPI_CloseHandle($hProcess)
 
@@ -69,8 +75,29 @@ Next
 
 DllCall("Kernel32.dll", "BOOL", "SetConsoleTextAttribute", "PTR", $hConsole, "DWORD", $tConsoleScreenBufferInfo.wAttributes)
 
-ConsoleWrite(@CRLF)
+ConsoleWrite(@CRLF&@CRLF)
 ConsoleWrite($output&@CRLF)
-ConsoleWrite(@CRLF)
+ConsoleWrite(StringFormat("%i Number of assertions", $tMapping.count)&@CRLF)
 ConsoleWrite(StringFormat("%i Total tests run.", $aResults[$AU3UNIT_RESULT_COUNT])&@CRLF)
 ConsoleWrite(StringFormat("%i Passed - %i Failed - %i Errors", $aResults[$AU3UNIT_RESULT_PASSED], $aResults[$AU3UNIT_RESULT_FAILED], $aResults[$AU3UNIT_RESULT_ERROR])&@CRLF)
+
+$tMapping = Null
+_WinAPI_UnmapViewOfFile($pMapping)
+_WinAPI_CloseHandle($hMapping)
+
+Func au3unit_unixTimestamp($sDateTime = 0)
+    Local $aSysTimeInfo = _Date_Time_GetTimeZoneInformation()
+    Local $utcTime = ""
+
+    If Not $sDateTime Then $sDateTime = _NowCalc()
+
+    If Int(StringLeft($sDateTime, 4)) < 1970 Then Return ""
+
+    If $aSysTimeInfo[0] = 2 Then ; if daylight saving time is active
+        $utcTime = _DateAdd('n', $aSysTimeInfo[1] + $aSysTimeInfo[7], $sDateTime) ; account for time zone and daylight saving time
+    Else
+        $utcTime = _DateAdd('n', $aSysTimeInfo[1], $sDateTime) ; account for time zone
+    EndIf
+
+    Return _DateDiff('s', "1970/01/01 00:00:00", $utcTime)
+EndFunc
