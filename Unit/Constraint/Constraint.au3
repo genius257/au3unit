@@ -3,11 +3,15 @@ Global Const $Au3UnitConstraintCount = 1 ;https://github.com/sebastianbergmann/p
 Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = "", $returnResult = false, $line = Null, $passedToContraint = Null)
 	Local $success = False
 
-	Local $matches = Call("Au3UnitConstraint" & $constraint & "_Matches", $other, $passedToContraint)
+	Local $matches = Call("Au3UnitConstraint" & $constraint & "_Matches", $other, $passedToContraint, $description)
+	If @error = 0xDEAD And @extended = 0xBEEF Then $matches = Call("Au3UnitConstraint" & $constraint & "_Matches", $other, $passedToContraint)
 	If @error = 0xDEAD And @extended = 0xBEEF Then $matches = Call("Au3UnitConstraint" & $constraint & "_Matches", $other)
 	If @error = 0xDEAD And @extended = 0xBEEF Then $matches = Call("Au3UnitConstraintConstraint_Matches", $other)
+	If @error <> 0 And Execute("$matches[0]") = "Au3UnitExpectationFailedException" Then
+		$e = Call($matches[0]&"_getComparisonFailure", $matches)
+		ConsoleWrite(Call($e[0]&"_getExpectedAsString", $e)&@CRLF)
+	EndIf
 	If $matches Then $success = True
-
 	If $returnResult Then Return $success
 
 	If Not $success Then

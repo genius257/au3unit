@@ -1,48 +1,28 @@
 #include-once
 #include <Array.au3>
+#include "..\..\Comparator\Factory.au3"
+#include "..\ExpectationFailedException.au3"
 
 ;https://github.com/sebastianbergmann/phpunit/blob/master/src/Framework/Constraint/IsEqual.php
 ;shallow implementation
 
-Func Au3UnitConstraintIsEqual_Matches($other, $exspected)
-	If Not (VarGetType($other) == VarGetType($exspected)) Then Return False
-	If IsString($other) Then Return $exspected == $other
-	If IsArray($other) Then
-		;Return UBound($other, 0) = UBound($exspected, 0)
+Func Au3UnitConstraintIsEqual_Matches($other, $exspected, $description)
+	; If $exspected and $other are identical, they are also equal.
+	; This is the most common path and will allow us to skip
+	; initialization of all the comparators.
+	;If $exspected == $other Then return True
 
-		Local $count = 0
-		Local $i
-		Local $index[UBound($other, 0)]
-		Local $val
-		For $i = 0 To UBound($index)-1
-			$index[$i] = 0
-		Next
-
-		While 1
-			$val1 = Execute(StringFormat("$other[%s]", _ArrayToString($index, "][")))
-			If @error <> 0 Then Return False
-			$val2 = Execute(StringFormat("$exspected[%s]", _ArrayToString($index, "][")))
-			If @error <> 0 Then Return False
-			If Not Au3UnitConstraintIsEqual_Matches($val1, $val2) Then Return False
-
-			Local $innerIndex = UBound($index, 1)
-			While 1
-				$innerIndex-=1
-				If $innerIndex < 0 Then ExitLoop
-				$index[$innerIndex] += 1
-				If Not ($index[$innerIndex] >= UBound($other, $innerIndex + 1)) Then
-					ExitLoop
-				EndIf
-				If $innerIndex = 0 And $index[$innerIndex] = UBound($other, 1) Then ExitLoop 2
-				$index[$innerIndex] = 0
-			WEnd
-
-			$count += 1
-		WEnd
-
-		Return True
+	$comparator = Au3ComparatorFactory_getComparatorFor($exspected, $other)
+	If @error <> 0 Then ConsoleWriteError("no comparator found!"&@CRLF)
+	$e = Call($comparator&"_assertEquals", $exspected, $other) ;FIXME: expect array, to allow comparator to return messsage and assertion result
+	If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError($comparator&"_assertEquals function is missing"&@CRLF)
+	If @error <> 0 And Execute("$e[0]") = "Au3ComparatorComparisonFailure" Then
+		Return SetError(1, 0, Au3UnitExpectationFailedException(StringRegExpReplace($description & @CRLF & Call($e[0]&"_getMessage", $e), "(?(DEFINE)(?<range>[ \t\n\r\0\x0B]*))(^(?&range)|(?&range)$)", ""), $e))
+	ElseIf @error <> 0 Then
+		;ConsoleWriteError()
+		Return False
 	EndIf
-	Return $other = $exspected
+	Return True
 EndFunc
 
 Func Au3UnitConstraintIsEqual_ToString($a)

@@ -1,11 +1,11 @@
 #include-once
 ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php
 
-Func Au3ExporterExporter_Export($value, $indentation = 0)
+Func Au3ExporterExporter_export($value, $indentation = 0)
 	Return Au3ExporterExporter_RecursiveExport($value, $indentation)
 EndFunc
 
-Func Au3ExporterExporter_RecursiveExport(ByRef $value, $indentation, $processed = Null)
+Func Au3ExporterExporter_recursiveExport(ByRef $value, $indentation, $processed = Null)
 	If $value == Null Then Return "null"
 
 	If $value == True Then Return "true"
@@ -17,7 +17,7 @@ Func Au3ExporterExporter_RecursiveExport(ByRef $value, $indentation, $processed 
 	If IsPtr($value) Or IsHWnd($value) Then Return StringFormat("resource(%d) of type (%s)", $value, VarGetType($value))
 
 	if IsString($value) Then
-		If StringRegExp("[^\x09-\x0d\x1b\x20-\xff]", $value) Then Return "Binary String: 0x" & $value ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php#L235
+		If StringRegExp($value, "[^\x09-\x0d\x1b\x20-\xff]") Then Return "Binary String: 0x" & $value ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php#L235
 
 		Return "'" & StringRegExpReplace($value, "(\r\n|\n\r|\r)", @CRLF) & "'"
 	EndIf
@@ -73,6 +73,27 @@ Func Au3ExporterExporter_RecursiveExport(ByRef $value, $indentation, $processed 
 	;Return var_export($value)
 	$return = String($value)
 	Return $return?$return:VarGetType($value)
+EndFunc
+
+Func Au3ExporterExporter_shortenedRecursiveExport()
+	;FIXME
+EndFunc
+
+Func Au3ExporterExporter_shortenedExport($value)
+	If IsString($value) Then
+		Local $string = Au3ExporterExporter_export($value)
+		If StringLen($string) > 40 Then $string = StringMid($string, 1, 30) & '...' & StringRight($string, 7)
+		Return StringRegExpReplace($string, "\n", "\\n")
+	EndIf
+
+	If IsArray($value) Then
+		Return StringFormat( _
+			"Array (%s)", _
+			UBound($value) > 0 ? '...' : '' _
+		)
+	EndIf
+
+	Return Au3ExporterExporter_export($value)
 EndFunc
 
 Func StringRepeat($sChar, $nCount); https://www.autoitscript.com/forum/topic/140190-stringrepeat-very-fast-using-memset/
