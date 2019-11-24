@@ -46,15 +46,21 @@ Func Au3UnitConstraintLogicalNot_Negate($string)
 EndFunc
 
 Func Au3UnitConstraintLogicalNot_Evaluate($other, $description = "", $returnResult = false, $line = Null, $exspected = Null)
-	Local $success = Not Call("Au3UnitConstraint" & $exspected[0] & "_Evaluate", $other, $description, True, $line, $exspected[1])
-	If @error=0xDEAD And @extended=0xBEEF Then $success = Not Call("Au3UnitConstraint" & $exspected[0] & "_Evaluate", $other, $description, True, $line)
-	If @error=0xDEAD And @extended=0xBEEF Then $success = Not Call("Au3UnitConstraintConstraint_Evaluate", $exspected[0], $other, $description, True, $line, $exspected[1])
+	Local $comparisonFailure = Null
+	Local $success = Call("Au3UnitConstraint" & $exspected[0] & "_Evaluate", $other, $description, True, $line, $exspected[1])
+	If @error=0xDEAD And @extended=0xBEEF Then $success = Call("Au3UnitConstraint" & $exspected[0] & "_Evaluate", $other, $description, True, $line)
+	If @error=0xDEAD And @extended=0xBEEF Then $success = Call("Au3UnitConstraintConstraint_Evaluate", $exspected[0], $other, $description, True, $line, $exspected[1])
+	Local $error = @error
+	If $error <> 0 And Execute("$success[0]") = "Au3UnitExpectationFailedException" Then
+		$e = Call($success[0]&"_getComparisonFailure", $success)
+		$comparisonFailure = $e
+	EndIf
 
-	If $returnResult Then Return $success
+	If $returnResult Then Return ($comparisonFailure = Null) ? Not $success : SetError(0, 0, $success)
 
-	If Not $success Then
-		Call("Au3UnitConstraintLogicalNot_Fail", $other, $description, Null, $line, $exspected)
-		If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_Fail", "LogicalNot", $other, $description, Null, $line)
+	If (IsBool($success) And Not $success) Or ($comparisonFailure = Null) Then
+		Call("Au3UnitConstraintLogicalNot_Fail", $other, $description, $comparisonFailure, $line, $exspected)
+		If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_Fail", "LogicalNot", $other, $description, $comparisonFailure, $line)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Exit MsgBox(0, "Au3Unit", "Au3UnitConstraintConstraint_Fail function is missing"&@CRLF&"Exitting") + 1
 		Return SetError(@error)
 	EndIf
@@ -64,6 +70,10 @@ Func Au3UnitConstraintLogicalNot_Fail($other, $description, $comparisonFailure, 
 	Local $failureDescription = Call("Au3UnitConstraintLogicalNot_FailureDescription", $other, $exspected)
 	If @error = 0xDEAD And @extended = 0xBEEF Then $failureDescription = Call("Au3UnitConstraintConstraint_FailureDescription", "LogicalNot", $other)
 	$failureDescription = StringFormat("Failed asserting that %s.", $failureDescription)
+	If Not ($comparisonFailure = Null) Then
+		$failureDescription = StringRegExpReplace(Call($comparisonFailure[0]&"_toString", $comparisonFailure), "\n$", "")
+		If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError(StringFormat("LogicalNot.au3:%s ERROR: function %s call failure!\n", @ScriptLineNumber, $e[0]&"_toString"))
+	EndIf
 
 	#ignorefunc Au3UnitConstraintLogicalNot_AdditionalFailureDescription
 	Local $additionalFailureDescription = Call("Au3UnitConstraintLogicalNot_AdditionalFailureDescription", $other)
@@ -93,7 +103,7 @@ Func Au3UnitConstraintLogicalNot_FailureDescription($other, $exspected)
 			If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_FailureDescription", $other, $exspected[0])
 			Return 'not( ' & $failureDescription & ' )'
 		Case Else
-			Local $failureDescription = Call("Au3UnitConstraint" & $exspected[0] & "_FailureDescription", $exspected[0], $other, $exspected[1])
+			Local $failureDescription = Call("Au3UnitConstraint" & $exspected[0] & "_FailureDescription", $exspected[0], $other, $exspected[1]) ;TODO: look into if all 3 parameters are always exspected (maybe call with 2 if above fails)
 			If @error = 0xDEAD And @extended = 0xBEEF Then $failureDescription = Call("Au3UnitConstraintConstraint_FailureDescription", $exspected[0], $other)
 			Return Au3UnitConstraintLogicalNot_Negate($failureDescription)
 	EndSwitch

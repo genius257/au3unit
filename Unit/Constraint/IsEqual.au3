@@ -2,6 +2,7 @@
 #include <Array.au3>
 #include "..\..\Comparator\Factory.au3"
 #include "..\ExpectationFailedException.au3"
+#include "..\..\Exporter\Exporter.au3"
 
 ;https://github.com/sebastianbergmann/phpunit/blob/master/src/Framework/Constraint/IsEqual.php
 ;shallow implementation
@@ -26,7 +27,17 @@ Func Au3UnitConstraintIsEqual_Matches($other, $exspected, $description)
 EndFunc
 
 Func Au3UnitConstraintIsEqual_ToString($a)
-	Return StringFormat("is equal to %s", $a)
+	Local $delta = ''
+	
+	If IsString($a) Then
+		If StringRegExp($a, "\n") Then Return 'is equal to <text>'
+
+		Return StringFormat("is equal to '%s'", $a)
+	EndIf
+
+	;NOTE: does not support delta, currently. Would require the entire Unit framework to support the class model
+
+	Return StringFormat("is equal to %s%s", Au3ExporterExporter_export($a), $delta)
 EndFunc
 #cs
 #include <Array.au3>

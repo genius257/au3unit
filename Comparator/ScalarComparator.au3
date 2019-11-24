@@ -33,35 +33,24 @@ Func Au3ComparatorScalarComparator_assertEquals($expected, $actual, $delta = 0.0
         EndIf
     EndIf
     if ((Not $expectedToCompare == $actualToCompare) And isString($expected) And isString($actual)) Then
-        Return SetError(1, 0, 'idk')
-        #cs
-        throw new ComparisonFailure(
-            $expected,
-            $actual,
-            $this->exporter->export($expected),
-            $this->exporter->export($actual),
-            false,
-            'Failed asserting that two strings are equal.'
-        );
-        #ce
+        Return SetError(1, 0, Au3ComparatorComparisonFailure( _
+            $expected, _
+            $actual, _
+            Call($Au3ComparatorScalarComparatorExporter&"_export", $expected), _
+            Call($Au3ComparatorScalarComparatorExporter&"_export", $actual), _
+            False, _
+            'Failed asserting that two strings are equal.' _
+        ))
     EndIf
     if Not ($expectedToCompare = $actualToCompare) Then
-        Return SetError(1, 0, 'idk')
-        #cs
-        throw new ComparisonFailure(
-            $expected,
-            $actual,
-            // no diff is required
-            '',
-            '',
-            false,
-            \sprintf(
-                'Failed asserting that %s matches expected %s.',
-                $this->exporter->export($actual),
-                $this->exporter->export($expected)
-            )
-        );
-        #ce
+        Return SetError(1, 0, Au3ComparatorComparisonFailure( _
+            $expected, _
+            $actual, _
+            '', _ ; no diff is required
+            '', _
+            False, _
+            StringFormat('Failed asserting that %s matches expected %s.', Call($Au3ComparatorScalarComparatorExporter&"_export", $actual), Call($Au3ComparatorScalarComparatorExporter&"_export", $expected)) _
+        ))
     EndIf
 EndFunc
 #cs

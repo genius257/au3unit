@@ -39,7 +39,10 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
     While 1
         $key = _ArrayToString($index, "][")
         $val2 = Execute(StringFormat("$expected[%s]", $key))
-        If @error <> 0 Then Return SetError(1, 0, False); this only happens if there is an error generating the array key!
+        If @error <> 0 Then
+            ConsoleWrite("ArrayComparator.au3 ERROR: failed generating key")
+            Return SetError(1, 0, False); this only happens if there is an error generating the array key!
+        EndIf
         $val1 = Execute(StringFormat("$actual[%s]", $key))
         If @error <> 0 Then
             $expectedAsString &= StringFormat( _
@@ -67,10 +70,11 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
             ContinueLoop
         EndIf
         $comparator = Au3ComparatorFactory_getComparatorFor($val2, $val1)
-        If @error <> 0 Then ConsoleWriteError("no comparator found!"&@CRLF)
+        If @error <> 0 Then ConsoleWriteError(StringFormat("ArrayComparator.au3:%s ERROR: no comparator found!\n", @ScriptLineNumber))
         $e = Call($comparator&"_assertEquals", $val2, $val1)
         If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError($comparator&"_assertEquals function is missing"&@CRLF)
-        If @error <> 0 And Execute("$e[0]") = "Au3ComparatorComparisonFailure" Then
+        Local $error = @error
+        If $error <> 0 And Execute("$e[0]") = "Au3ComparatorComparisonFailure" Then
             $expectedAsString &= StringFormat( _
                 "    %s => %s\n", _
                 Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
@@ -84,7 +88,7 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
             )
 
             $equal = False
-        ElseIf @error = 0 Then
+        ElseIf $error = 0 Then
             $expectedAsString &= StringFormat( _
                 "    %s => %s\n", _
                 Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
@@ -96,6 +100,8 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
                 Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
                 Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", $val1) _
             )
+        Else
+            ConsoleWriteError(StringFormat("ArrayComparator.au3:%s ERROR: @error was <> 0 but no Eception was found!\n", @ScriptLineNumber))
         EndIf
         ;If Not Au3UnitConstraintIsEqual_Matches($val1, $val2) Then Return SetError(1, 0, False)
 
@@ -114,18 +120,11 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         $count += 1
     WEnd
 
-    While 1
-        Local $innerIndex = UBound($index, 1)
-        While 1
-            $innerIndex-=1
-            If $innerIndex < 0 Then ExitLoop
-            $index[$innerIndex] += 1
-            If Not ($index[$innerIndex] >= UBound($remaining, $innerIndex + 1)) Then
-                ExitLoop
-            EndIf
-            If $innerIndex = 0 And $index[$innerIndex] = UBound($remaining, 1) Then ExitLoop 2
-            $index[$innerIndex] = 0
-        WEnd
+    ;If UBound($expected, $innerIndex + 1) < UBound($remaining, $innerIndex + 1) Then $index[$innerIndex] -= 1
+    ;$index[$innerIndex] -= 1
+    Local $more = UBound($expected, $innerIndex + 1) < UBound($remaining, $innerIndex + 1)
+
+    While $more
         $count += 1
         $key = _ArrayToString($index, "][")
         $val1 = Execute(StringFormat("$remaining[%s]", $key))
@@ -135,6 +134,18 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
             Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", $val1) _
         )
         $equal = False
+
+        Local $innerIndex = UBound($index, 1)
+        While 1
+            $innerIndex-=1
+            If $innerIndex < 0 Then ExitLoop
+            $index[$innerIndex] += 1
+            If Not ($index[$innerIndex] = UBound($remaining, $innerIndex + 1)) Then
+                ExitLoop
+            EndIf
+            If $innerIndex = 0 And $index[$innerIndex] >= UBound($remaining, 1) Then ExitLoop 2
+            $index[$innerIndex] = 0
+        WEnd
     WEnd
 
     $expectedAsString &= ')'
