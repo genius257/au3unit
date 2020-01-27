@@ -19,7 +19,7 @@ Func Au3UnitExpectationFailedException_getComparisonFailure($this)
 EndFunc
 
 Func Au3UnitExpectationFailedException_getMessage($this)
-    Return $this[Au3UnitExpectationFailedException_message]
+    Return $this[$Au3UnitExpectationFailedException_message]
 EndFunc
 
 Func Au3UnitExpectationFailedException_toString($this)

@@ -72,7 +72,7 @@ Func Au3UnitConstraintLogicalNot_Fail($other, $description, $comparisonFailure, 
 	$failureDescription = StringFormat("Failed asserting that %s.", $failureDescription)
 	If Not ($comparisonFailure = Null) Then
 		$failureDescription = StringRegExpReplace(Call($comparisonFailure[0]&"_toString", $comparisonFailure), "\n$", "")
-		If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError(StringFormat("LogicalNot.au3:%s ERROR: function %s call failure!\n", @ScriptLineNumber, $e[0]&"_toString"))
+		If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError(StringFormat("LogicalNot.au3:%s ERROR: function %s call failure!\n", @ScriptLineNumber, $comparisonFailure[0]&"_toString"))
 	EndIf
 
 	#ignorefunc Au3UnitConstraintLogicalNot_AdditionalFailureDescription
