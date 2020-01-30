@@ -4,5 +4,9 @@
   "dependencies": {
     "autoit": ">=3.3.14.5",
     "StringRegExpSplit": "^1.0.0"
+  },
+  "scripts": {
+    "build": "build.bat",
+    "test": "test.bat"
   }
 }
