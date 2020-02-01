@@ -43,6 +43,12 @@ For $i = 1 To UBound($aFiles, 1)-1 Step +1
 
     $iPID = Run(@ScriptDir & "\au3pm\autoit\AutoIt3.exe /ErrorStdOut " & '"' & $sFile & '"' & " external "&$sMapping, $workingDir, @SW_HIDE, $STDOUT_CHILD + $STDERR_CHILD)
 
+    If @error <> 0 Then
+        $output &= "An error occured in au3unit core, when trying to run test: " & @CRLF
+        $output &= StringFormat("@error: %s\n", @error)
+        $output &= @ScriptDir & "\au3pm\autoit\AutoIt3.exe /ErrorStdOut " & '"' & $sFile & '"' & @CRLF & @CRLF
+    EndIf
+
     Global $hProcess
     If _WinAPI_GetVersion() >= 6.0 Then
         $hProcess = _WinAPI_OpenProcess($PROCESS_QUERY_LIMITED_INFORMATION, 0, $iPID)
