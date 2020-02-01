@@ -10,7 +10,7 @@ REM FOR /F "skip=2 tokens=2,*" %%A IN ('reg query "%AutoItReg:"=%\AutoIt" /v "In
 
 set "AutoItDir=%~dp0\au3pm\autoit"
 
-IF NOT EXIST "%~dp0\build\au3pm\" (mklink /D "%~dp0\build\au3pm\" "..\au3pm\" >NUL)
+IF NOT EXIST "%~dp0\build\au3pm\" (mklink /J "%~dp0\build\au3pm\" "%~dp0\au3pm\" >NUL)
 
 IF EXIST "%~dp0\build\au3unit.exe" (DEL "%~dp0\build\au3unit.exe")
 
