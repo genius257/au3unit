@@ -23,7 +23,7 @@ In a new cmd window:
 C:\User\genius257>cd "C:\Projects\Example\"
 C:\Projects\Example>au3pm install au3unit
 ...
-C:\Projects\Example>au3pm install rebuild
+C:\Projects\Example>au3pm rebuild
 ...
 C:\Projects\Example>cd tests
 C:\Projects\Example\tests>"C:\Projects\Example\au3pm\au3unit\build\au3unit.exe"
