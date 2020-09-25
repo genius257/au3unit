@@ -2,7 +2,12 @@
 ;https://github.com/sebastianbergmann/phpunit/blob/master/src/Framework/Constraint/IsIdentical.php
 
 Func Au3UnitConstraintIsIdentical_Evaluate($other, $description = "", $returnResult = false, $line = Null, $exspected = Null)
-	Local $success = $exspected == $other
+	Local $success = VarGetType($exspected) == VarGetType($other)
+	If IsString($exspected) Then
+		$success = $success And $exspected == $other
+	Else
+		$success = $success And $exspected = $other
+	EndIf
 
 	If $returnResult Then Return $success
 
