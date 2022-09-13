@@ -1,7 +1,10 @@
 #include-once
+#include "ObjectComparator.au3"
 #include "ResourceComparator.au3"
 #include "ArrayComparator.au3"
 #include "ScalarComparator.au3"
+#include "TypeComparator.au3"
+#include "..\PHP\RuntimeException.au3"
 
 Global $Au3ComparatorFactoryCustomComparators = []
 Global $Au3ComparatorFactoryDefaultComparators = []
@@ -19,7 +22,8 @@ Func Au3ComparatorFactory_getComparatorFor($expected, $actual)
         If Call($comparator&"_accepts", $expected, $actual) Then Return $comparator
     Next
 
-    Return SetError(1)
+    Return SetError(1, 0, Au3PhpRuntimeException('No suitable Comparator implementation found'))
+    Return SetError(1) ;FIXME: no default value specified! either empty string or something like it should be provieded (current au3 version return 1, resulting in wierd error message "1__assertEquals function is missing")
 EndFunc
 
 Func Au3ComparatorFactory_register($comparator)
@@ -56,13 +60,13 @@ EndFunc
 Func Au3ComparatorFactory_registerDefaultComparators()
     Au3ComparatorFactory_registerDefaultComparator('MockObjectComparator');TODO: maybe keep
     ;Au3ComparatorFactory_registerDefaultComparator('DateTimeComparator');TODO: maybe remove
-    Au3ComparatorFactory_registerDefaultComparator('ObjectComparator');TODO: maybe keep
+    Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorObjectComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorResourceComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorArrayComparator')
-    Au3ComparatorFactory_registerDefaultComparator('DoubleComparator')
-    Au3ComparatorFactory_registerDefaultComparator('NumericComparator')
+    ;Au3ComparatorFactory_registerDefaultComparator('DoubleComparator')
+    ;Au3ComparatorFactory_registerDefaultComparator('NumericComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorScalarComparator')
-    Au3ComparatorFactory_registerDefaultComparator('TypeComparator')
+    Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorTypeComparator')
 EndFunc
 
 Func Au3ComparatorFactory_registerDefaultComparator($comparator)
