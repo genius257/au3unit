@@ -1,4 +1,5 @@
 #include-once
+#include "ResourceComparator.au3"
 #include "ArrayComparator.au3"
 #include "ScalarComparator.au3"
 
@@ -56,6 +57,7 @@ Func Au3ComparatorFactory_registerDefaultComparators()
     Au3ComparatorFactory_registerDefaultComparator('MockObjectComparator');TODO: maybe keep
     ;Au3ComparatorFactory_registerDefaultComparator('DateTimeComparator');TODO: maybe remove
     Au3ComparatorFactory_registerDefaultComparator('ObjectComparator');TODO: maybe keep
+    Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorResourceComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorArrayComparator')
     Au3ComparatorFactory_registerDefaultComparator('DoubleComparator')
     Au3ComparatorFactory_registerDefaultComparator('NumericComparator')
