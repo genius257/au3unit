@@ -14,7 +14,7 @@ Func Au3ExporterExporter_recursiveExport(ByRef $value, $indentation, $processed 
 
 	If IsFloat($value) And Int($value) == $value Then Return StringFormat("%s.0", $value)
 
-	If IsPtr($value) Or IsHWnd($value) Then Return StringFormat("resource(%d) of type (%s)", $value, VarGetType($value))
+	If IsPtr($value) Or IsHWnd($value) Then Return StringFormat("resource(0x%.8X) of type (%s)", $value, VarGetType($value))
 
 	if IsString($value) Then
 		If StringRegExp($value, "[^\x09-\x0d\x1b\x20-\xff]") Then Return "Binary String: 0x" & $value ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php#L235
