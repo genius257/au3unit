@@ -1,4 +1,5 @@
 #include-once
+#include "..\ExpectationFailedException.au3"
 
 Global Const $Au3UnitConstraintCount = 1 ;https://github.com/sebastianbergmann/phpunit/blob/7.2/src/Framework/Constraint/Constraint.php#L72
 
@@ -21,10 +22,10 @@ Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = ""
 	If $returnResult Then Return ($comparisonFailure = Null) ? $success : SetError(1, 0, $matches)
 
 	If Not $success Then
-		Call("Au3UnitConstraint" & $constraint & "_Fail", $other, $description, $comparisonFailure, $line)
-		If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_Fail", $constraint, $other, $description, $comparisonFailure, $line, $passedToContraint)
+		$e = Call("Au3UnitConstraint" & $constraint & "_Fail", $other, $description, $comparisonFailure, $line)
+		If @error = 0xDEAD And @extended = 0xBEEF Then $e = Call("Au3UnitConstraintConstraint_Fail", $constraint, $other, $description, $comparisonFailure, $line, $passedToContraint)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Exit MsgBox(0, "Au3Unit", "Au3UnitConstraintConstraint_Fail function is missing"&@CRLF&"Exitting") + 1
-		Return SetError(@error)
+		Return SetError(@error, 0, $e)
 	EndIf
 EndFunc
 
@@ -33,6 +34,7 @@ Func Au3UnitConstraintConstraint_Fail($constraint, $other, $description, $compar
 	If @error = 0xDEAD And @extended = 0xBEEF Then $failureDescription = Call("Au3UnitConstraint" & $constraint & "_FailureDescription", $other)
 	If @error = 0xDEAD And @extended = 0xBEEF Then $failureDescription = Call("Au3UnitConstraintConstraint_FailureDescription", $constraint, $other, $passedToContraint)
 	$failureDescription = StringFormat("Failed asserting that %s.", $failureDescription)
+
 	If Not ($comparisonFailure = Null) Then
 		$failureDescription = StringRegExpReplace(Call($comparisonFailure[0]&"_toString", $comparisonFailure), "\n$", "")
 		If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError(StringFormat("Constraint.au3:%s ERROR: function %s call failure!\n", @ScriptLineNumber, $comparisonFailure[0]&"_toString"))
@@ -46,6 +48,7 @@ Func Au3UnitConstraintConstraint_Fail($constraint, $other, $description, $compar
 	If Not ($description = "") Then $failureDescription = $description & @CRLF & $failureDescription
 
 	ConsoleWriteError($failureDescription&@CRLF&@ScriptFullPath&":"&$line&@CRLF)
+	;Return SetError(1, 0, Au3UnitExpectationFailedException($failureDescription, $comparisonFailure))
 	Return SetError(1)
 EndFunc
 
