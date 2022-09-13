@@ -12,7 +12,7 @@ Lets say the project is in `C:\Projects\Example\`
 file: `C:\Projects\Example\tests\mainTest.au3`
 
 ```AutoIt
-#include "..\au3pm\au3unit\Unit\assert.au3"
+#include "..\au3pm\au3unit\testCase.au3"
 
 assertEquals("a", "a")
 ```
