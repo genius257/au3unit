@@ -26,7 +26,7 @@ Func assertThat($value, $constraint, $message = "", $line = @ScriptLineNumber, $
 		_WinAPI_CloseHandle($hMapping)
 	EndIf
 
-	$e = Call("Au3UnitConstraint" & $constraint & "_Evaluate", $value, $message, False, $line, $passedToContraint)
+	Local $e = Call("Au3UnitConstraint" & $constraint & "_Evaluate", $value, $message, False, $line, $passedToContraint)
 	If @error==0xDEAD And @extended==0xBEEF Then $e = Call("Au3UnitConstraintConstraint_Evaluate", $constraint, $value, $message, False, $line, $passedToContraint)
 	$error = @error
 	If $error <> 0 And $CmdLine[0]>0 And $CmdLine[1] == "external" Then Exit $AU3UNIT_EXITCODE_FAIL
