@@ -13,7 +13,7 @@ Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = ""
 	If @error = 0xDEAD And @extended = 0xBEEF Then $matches = Call("Au3UnitConstraintConstraint_Matches", $other)
 	Local $error = @error
 	If $error <> 0 And Execute("$matches[0]") = "Au3UnitExpectationFailedException" Then
-		$e = Call($matches[0]&"_getComparisonFailure", $matches)
+		Local $e = Call($matches[0]&"_getComparisonFailure", $matches)
 		$comparisonFailure = $e
 		;ConsoleWrite(Call($e[0]&"_toString", $e)&@CRLF)
 		;ConsoleWrite($e[0]&@CRLF)
@@ -22,7 +22,7 @@ Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = ""
 	If $returnResult Then Return ($comparisonFailure = Null) ? $success : SetError(1, 0, $matches)
 
 	If Not $success Then
-		$e = Call("Au3UnitConstraint" & $constraint & "_Fail", $other, $description, $comparisonFailure, $line)
+		Local $e = Call("Au3UnitConstraint" & $constraint & "_Fail", $other, $description, $comparisonFailure, $line)
 		If @error = 0xDEAD And @extended = 0xBEEF Then $e = Call("Au3UnitConstraintConstraint_Fail", $constraint, $other, $description, $comparisonFailure, $line, $passedToContraint)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Exit MsgBox(0, "Au3Unit", "Au3UnitConstraintConstraint_Fail function is missing"&@CRLF&"Exitting") + 1
 		Return SetError(@error, 0, $e)
