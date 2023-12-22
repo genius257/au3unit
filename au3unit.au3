@@ -91,6 +91,8 @@ $tMapping = Null
 _WinAPI_UnmapViewOfFile($pMapping)
 _WinAPI_CloseHandle($hMapping)
 
+if ($aResults[$AU3UNIT_RESULT_FAILED] > 0 Or $aResults[$AU3UNIT_RESULT_ERROR] > 0) Then Exit 1
+
 Func au3unit_unixTimestamp($sDateTime = 0)
     Local $aSysTimeInfo = _Date_Time_GetTimeZoneInformation()
     Local $utcTime = ""
