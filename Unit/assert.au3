@@ -80,6 +80,14 @@ Func assertInternalType($expected, $actual, $message = "", $line = @ScriptLineNu
 	assertThat($actual, "IsType", $message, $line, $expected)
 EndFunc
 
+Func assertIsNumber($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "Number")
+EndFunc
+
+Func assertIsInt($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "Int")
+EndFunc
+
 #include "Constraint\LogicalNot.au3"
 Func assertNotInternalType($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	Local $passedToContraint = ["IsType", $expected]
