@@ -9,5 +9,15 @@ Func Au3UnitConstraintIsType_FailureDescription($other, $exspected)
 EndFunc
 
 Func Au3UnitConstraintIsType_Matches($other, $expected)
-	Return VarGetType($other) == $expected
+	$expected = StringLower($expected)
+	$actual = StringLower(VarGetType($other))
+
+	Switch $expected
+		Case "int"
+			Return $actual = "Int32" Or $actual = "Int64"
+		Case "number"
+			Return $actual = "Int32" Or $actual = "Int64" Or $actual = "Double"
+		Case Else
+			Return $expected = $actual
+	EndSwitch
 EndFunc
