@@ -12,7 +12,7 @@ Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = ""
 	If @error = 0xDEAD And @extended = 0xBEEF Then $matches = Call("Au3UnitConstraint" & $constraint & "_Matches", $other)
 	If @error = 0xDEAD And @extended = 0xBEEF Then $matches = Call("Au3UnitConstraintConstraint_Matches", $other)
 	Local $error = @error
-	If $error <> 0 And Execute("$matches[0]") = "Au3UnitExpectationFailedException" Then
+	If $error <> 0 And Is_Au3UnitExpectationFailedException($matches) Then
 		Local $e = Call($matches[0]&"_getComparisonFailure", $matches)
 		$comparisonFailure = $e
 		;ConsoleWrite(Call($e[0]&"_toString", $e)&@CRLF)

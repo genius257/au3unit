@@ -1,5 +1,11 @@
 #include-once
 
+#Region Helper Functions
+    Func Is_Au3UnitExpectationFailedException($this)
+        Return isArray($this) And Execute("$this[$Au3UnitExpectationFailedException_CLASS]") == "Au3UnitExpectationFailedException"
+    EndFunc
+#EndRegion
+
 ;https://github.com/sebastianbergmann/phpunit/blob/5c7620ef0c30d16e352cd71d9a36b91c6fd5af29/src/Framework/Exception/ExpectationFailedException.php
 
 Global Enum $Au3UnitExpectationFailedException_CLASS, $Au3UnitExpectationFailedException_message, $Au3UnitExpectationFailedException_comparisonFailure, $Au3UnitExpectationFailedException_COUNT
