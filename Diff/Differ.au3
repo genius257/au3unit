@@ -12,7 +12,7 @@ Func Au3DiffDiffer($outputBuilder = null)
 
     $this[$Au3DiffDiffer_CLASS] = "Au3DiffDiffer"
 
-    If Execute("$outputBuilder[0]") = "Au3DiffOutputUnifiedDiffOutputBuilder" Then
+    If Is_Au3DiffOutputUnifiedDiffOutputBuilder($outputBuilder) Then
         $this[$Au3DiffDiffer_outputBuilder] = $outputBuilder
     ElseIf $outputBuilder == Null Then
         $this[$Au3DiffDiffer_outputBuilder] = Au3DiffOutputUnifiedDiffOutputBuilder()

@@ -1,6 +1,10 @@
 #include-once
 #include "..\Differ.au3"
 
+Func Is_Au3DiffOutputUnifiedDiffOutputBuilder($this)
+    Return Execute("$this[$Au3DiffOutputUnifiedDiffOutputBuilder_CLASS]") == "Au3DiffOutputUnifiedDiffOutputBuilder"
+EndFunc
+
 Global Enum $Au3DiffOutputUnifiedDiffOutputBuilder_CLASS, $Au3DiffOutputUnifiedDiffOutputBuilder_collapseRanges, $Au3DiffOutputUnifiedDiffOutputBuilder_commonLineThreshold, $Au3DiffOutputUnifiedDiffOutputBuilder_contextLines, $Au3DiffOutputUnifiedDiffOutputBuilder_header, $Au3DiffOutputUnifiedDiffOutputBuilder_addLineNumbers, $Au3DiffOutputUnifiedDiffOutputBuilder_COUNT
 
 Func Au3DiffOutputUnifiedDiffOutputBuilder($header = StringFormat("--- Original\n+++ New\n"), $addLineNumbers = False)
