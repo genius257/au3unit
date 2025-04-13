@@ -9,6 +9,7 @@ Global Const $AU3UNIT_EXITCODE_FAIL = 0x3DE2
 
 #include "Constraint\Constraint.au3"
 #include "Constraint\IsType.au3"
+#include "Constraint/LogicalOr.au3"
 
 If $CmdLine[0]>1 And $CmdLine[1] == "external" Then Opt("TrayIconHide", 0)
 
