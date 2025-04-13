@@ -18,7 +18,7 @@ Func Au3UnitConstraintIsEqual_Matches($other, $exspected, $description)
 	Local $e = Call($comparator&"_assertEquals", $exspected, $other) ;FIXME: expect array, to allow comparator to return messsage and assertion result
 	Local $error = @error
 	If $error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError($comparator&"_assertEquals function is missing"&@CRLF)
-	If $error <> 0 And Execute("$e[0]") = "Au3ComparatorComparisonFailure" Then
+	If $error <> 0 And Is_Au3ComparatorComparisonFailure($e) Then
 		Return SetError(1, 0, Au3UnitExpectationFailedException(StringRegExpReplace($description & @CRLF & Call($e[0]&"_getMessage", $e), "(?(DEFINE)(?<range>[ \t\n\r\0\x0B]*))(^(?&range)|(?&range)$)", ""), $e))
 	ElseIf $error <> 0 Then
 		Return False

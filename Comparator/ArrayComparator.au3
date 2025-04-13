@@ -74,7 +74,7 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         $e = Call($comparator&"_assertEquals", $val2, $val1)
         If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError($comparator&"_assertEquals function is missing"&@CRLF)
         Local $error = @error
-        If $error <> 0 And Execute("$e[0]") = "Au3ComparatorComparisonFailure" Then
+        If $error <> 0 And Is_Au3ComparatorComparisonFailure($e) Then
             $expectedAsString &= StringFormat( _
                 "    %s => %s\n", _
                 Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _

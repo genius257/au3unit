@@ -2,6 +2,10 @@
 #include "..\Diff\Differ.au3"
 #include "..\Diff\Output\UnifiedDiffOutputBuilder.au3"
 
+Func Is_Au3ComparatorComparisonFailure($this)
+    Return Execute("$this[$Au3ComparatorComparisonFailure_CLASS]") == "Au3ComparatorComparisonFailure"
+EndFunc
+
 ;https://github.com/sebastianbergmann/comparator/blob/4632afe96e838df61ce88790bb5ad178f4d7b184/src/ComparisonFailure.php
 
 Global Enum $Au3ComparatorComparisonFailure_CLASS, $Au3ComparatorComparisonFailure_expected, $Au3ComparatorComparisonFailure_actual, $Au3ComparatorComparisonFailure_expectedAsString, $Au3ComparatorComparisonFailure_actualAsString, $Au3ComparatorComparisonFailure_identical, $Au3ComparatorComparisonFailure_message, $Au3ComparatorComparisonFailure_COUNT
