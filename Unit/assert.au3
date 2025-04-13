@@ -48,7 +48,7 @@ Func assertNotEquals($expected, $actual, $message = "", $line = @ScriptLineNumbe
 	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
 
-#include "Constraint\IsFalse.au3"
+#include "Constraint\Boolean\IsFalse.au3"
 Func assertFalse($condition, $message = "", $line = @ScriptLineNumber)
 	assertThat($condition, "IsFalse", $message, $line, $condition)
 EndFunc
@@ -145,7 +145,7 @@ Func assertStringStartsNotWith($prefix, $string, $message = "")
 
 EndFunc
 #ce
-#include "Constraint\IsTrue.au3"
+#include "Constraint\Boolean\IsTrue.au3"
 Func assertTrue($condition, $message = "", $line = @ScriptLineNumber)
 	assertThat($condition, "IsTrue", $message, $line, $condition)
 EndFunc
