@@ -2,9 +2,11 @@
 #include "..\Diff\Differ.au3"
 #include "..\Diff\Output\UnifiedDiffOutputBuilder.au3"
 
-Func Is_Au3ComparatorComparisonFailure($this)
-    Return Execute("$this[$Au3ComparatorComparisonFailure_CLASS]") == "Au3ComparatorComparisonFailure"
-EndFunc
+#Region Helper Functions
+    Func Is_Au3ComparatorComparisonFailure($this)
+        Return Execute("$this[$Au3ComparatorComparisonFailure_CLASS]") == "Au3ComparatorComparisonFailure"
+    EndFunc
+#EndRegion
 
 ;https://github.com/sebastianbergmann/comparator/blob/4632afe96e838df61ce88790bb5ad178f4d7b184/src/ComparisonFailure.php
 
