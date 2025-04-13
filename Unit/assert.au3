@@ -64,9 +64,10 @@ Func assertGreaterThan($minimum, $actual, $message = "", $line = @ScriptLineNumb
 	assertThat($minimum, "GreaterThan", $message, $line, $actual)
 EndFunc
 
-; Func assertGreaterThanOrEqual($expected, $actual, $message = "")
-
-; EndFunc
+Func assertGreaterThanOrEqual($minimum, $actual, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = [["IsEqual", $actual],["GreaterThan", $actual]]
+	assertThat($minimum, "LogicalOr", $message, $line, $passedToContraint)
+EndFunc
 
 ; Func assertInfinite($variable, $message = "")
 
