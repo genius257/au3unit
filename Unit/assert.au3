@@ -94,9 +94,10 @@ Func assertNotInternalType($expected, $actual, $message = "", $line = @ScriptLin
 	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
 
-; Func assertLessThan($expected, $actual, $message = "")
-
-; EndFunc
+#include "Constraint\Cardinality\LessThan.au3"
+Func assertLessThan($maximum, $actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($maximum, "LessThan", $message, $line, $actual)
+EndFunc
 
 ; Func assertLessThanOrEqual($expected, $actual, $message = "")
 
