@@ -26,18 +26,18 @@ Func Au3UnitConstraintIsEqual_Matches($other, $exspected, $description)
 	Return True
 EndFunc
 
-Func Au3UnitConstraintIsEqual_ToString($a)
+Func Au3UnitConstraintIsEqual_ToString($value)
 	Local $delta = ''
 	
-	If IsString($a) Then
-		If StringRegExp($a, "\n") Then Return 'is equal to <text>'
+	If IsString($value) Then
+		If StringRegExp($value, "\n") Then Return 'is equal to <text>'
 
-		Return StringFormat("is equal to '%s'", $a)
+		Return StringFormat("is equal to '%s'", $value)
 	EndIf
 
 	;NOTE: does not support delta, currently. Would require the entire Unit framework to support the class model
 
-	Return StringFormat("is equal to %s%s", Au3ExporterExporter_export($a), $delta)
+	Return StringFormat("is equal to %s%s", Au3ExporterExporter_export($value), $delta)
 EndFunc
 #cs
 #include <Array.au3>
