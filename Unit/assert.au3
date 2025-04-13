@@ -59,8 +59,8 @@ Func assertNotFalse($condition, $message = "", $line = @ScriptLineNumber)
 EndFunc
 
 #include "Constraint\Cardinality\GreaterThan.au3"
-Func assertGreaterThan($expected, $actual, $message = "", $line = @ScriptLineNumber)
-	assertThat($actual, "GreaterThan", $message, $line, $expected)
+Func assertGreaterThan($minimum, $actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($minimum, "GreaterThan", $message, $line, $actual)
 EndFunc
 
 ; Func assertGreaterThanOrEqual($expected, $actual, $message = "")
