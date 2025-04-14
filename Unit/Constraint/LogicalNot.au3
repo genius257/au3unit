@@ -102,8 +102,8 @@ Func Au3UnitConstraintLogicalNot_FailureDescription($other, $exspected)
 			If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_FailureDescription", $other, $exspected[0])
 			Return 'not( ' & $failureDescription & ' )'
 		Case Else
-			Local $failureDescription = Call("Au3UnitConstraint" & $exspected[0] & "_FailureDescription", $exspected[0], $other, $exspected[1]) ;TODO: look into if all 3 parameters are always exspected (maybe call with 2 if above fails)
-			If @error = 0xDEAD And @extended = 0xBEEF Then $failureDescription = Call("Au3UnitConstraintConstraint_FailureDescription", $exspected[0], $other)
+			Local $failureDescription = Call("Au3UnitConstraint" & $exspected[0] & "_FailureDescription", $other, $exspected[1])
+			If @error = 0xDEAD And @extended = 0xBEEF Then $failureDescription = Call("Au3UnitConstraintConstraint_FailureDescription", $exspected[0], $other, $exspected[1])
 			Return Au3UnitConstraintLogicalNot_Negate($failureDescription)
 	EndSwitch
 EndFunc
