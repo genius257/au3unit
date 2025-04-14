@@ -110,10 +110,11 @@ Func assertNull($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsNull", $message, $line)
 EndFunc
 
-#cs
-Func assertNotNull()
-	assertThat($actual, logicalNot("isNull"), $message)
+Func assertNotNull($actual, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = ["IsNull", $actual]
+	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
+#cs
 
 
 Func assertStringMatchesFormat($format, $string, $message = "")
