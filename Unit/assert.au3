@@ -10,6 +10,7 @@ Global Const $AU3UNIT_EXITCODE_FAIL = 0x3DE2
 #include "Constraint\Constraint.au3"
 #include "Constraint\IsType.au3"
 #include "Constraint/LogicalOr.au3"
+#include "Constraint\LogicalNot.au3"
 
 If $CmdLine[0]>1 And $CmdLine[1] == "external" Then Opt("TrayIconHide", 0)
 
@@ -90,7 +91,6 @@ Func assertIsInt($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "Int")
 EndFunc
 
-#include "Constraint\LogicalNot.au3"
 Func assertNotInternalType($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	Local $passedToContraint = ["IsType", $expected]
 	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
