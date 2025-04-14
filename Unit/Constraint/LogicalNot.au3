@@ -52,13 +52,12 @@ Func Au3UnitConstraintLogicalNot_Evaluate($other, $description = "", $returnResu
 	If @error=0xDEAD And @extended=0xBEEF Then $success = Call("Au3UnitConstraintConstraint_Evaluate", $exspected[0], $other, $description, True, $line, $exspected[1])
 	Local $error = @error
 	If $error <> 0 And Is_Au3UnitExpectationFailedException($success) Then
-		$e = Call($success[0]&"_getComparisonFailure", $success)
-		$comparisonFailure = $e
+		$comparisonFailure = Call($success[0]&"_getComparisonFailure", $success)
 	EndIf
 
 	If $returnResult Then Return ($comparisonFailure = Null) ? Not $success : SetError(0, 0, $success)
 
-	If (IsBool($success) And Not $success) Or ($comparisonFailure = Null) Then
+	If (IsBool($success) And $success) And ($comparisonFailure = Null) Then
 		Call("Au3UnitConstraintLogicalNot_Fail", $other, $description, $comparisonFailure, $line, $exspected)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Call("Au3UnitConstraintConstraint_Fail", "LogicalNot", $other, $description, $comparisonFailure, $line)
 		If @error = 0xDEAD And @extended = 0xBEEF Then Exit MsgBox(0, "Au3Unit", "Au3UnitConstraintConstraint_Fail function is missing"&@CRLF&"Exitting") + 1
