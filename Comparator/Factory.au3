@@ -2,6 +2,7 @@
 #include "ObjectComparator.au3"
 #include "ResourceComparator.au3"
 #include "ArrayComparator.au3"
+#include "MapComparator.au3"
 #include "ScalarComparator.au3"
 #include "TypeComparator.au3"
 #include "..\PHP\RuntimeException.au3"
@@ -63,6 +64,7 @@ Func Au3ComparatorFactory_registerDefaultComparators()
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorObjectComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorResourceComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorArrayComparator')
+    Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorMapComparator')
     ;Au3ComparatorFactory_registerDefaultComparator('DoubleComparator')
     ;Au3ComparatorFactory_registerDefaultComparator('NumericComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorScalarComparator')
