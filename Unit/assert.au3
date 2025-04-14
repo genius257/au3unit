@@ -126,11 +126,12 @@ EndFunc
 Func assertSame($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsIdentical", $message, $line, $expected)
 EndFunc
-#cs
-Func assertNotSame($expected, $actual, $message = "")
 
+Func assertNotSame($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = ["IsIdentical", $expected]
+	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
-#ce
+
 #cs
 Func assertStringEndsWith($suffix, $string, $message = "")
 
