@@ -4,8 +4,6 @@
 #include <Date.au3>
 #include "..\Unit\assert.au3"
 
-Exit 123
-
 Global $tests = [ _
     ["constraints\True_Success.au3", "", 0], _
     ["constraints\True_Failure.au3", "Failed asserting that false is true.", $AU3UNIT_EXITCODE_FAIL], _
