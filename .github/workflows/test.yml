@@ -34,5 +34,5 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          ./au3pm/autoit/AutoIt3.exe /ErrorStdOut ./tests/test.au3
+          au3pm\autoit\AutoIt3.exe /ErrorStdOut tests\test.au3
           exit %ERRORLEVEL%
