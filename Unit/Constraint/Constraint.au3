@@ -15,8 +15,6 @@ Func Au3UnitConstraintConstraint_Evaluate($constraint, $other, $description = ""
 	If $error <> 0 And Is_Au3UnitExpectationFailedException($matches) Then
 		Local $e = Call($matches[0]&"_getComparisonFailure", $matches)
 		$comparisonFailure = $e
-		;ConsoleWrite(Call($e[0]&"_toString", $e)&@CRLF)
-		;ConsoleWrite($e[0]&@CRLF)
 	EndIf
 	If (IsBool($matches) And $matches) Or (Not IsBool($matches)) And $comparisonFailure = Null Then $success = True
 	If $returnResult Then Return ($comparisonFailure = Null) ? $success : SetError(1, 0, $matches)
