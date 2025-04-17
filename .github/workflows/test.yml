@@ -32,4 +32,4 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run tests
-        run: './au3pm/autoit/AutoIt3.exe ./tests/test.au3'
+        run: './au3pm/autoit/AutoIt3.exe /ErrorStdOut ./tests/test.au3'
