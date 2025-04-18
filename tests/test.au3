@@ -81,6 +81,8 @@ Global $hMapping = _WinAPI_CreateFileMapping(-1, 8, $sMapping)
 Global $pMapping = _WinAPI_MapViewOfFile($hMapping)
 Global $tMapping = DllStructCreate("UINT64 count", $pMapping)
 
+Global $failures = 0
+
 Global $success = True
 For $i = 0 To UBound($tests, 1) - 1 Step +1
     $file = @ScriptDir & "\" & $tests[$i][0]
@@ -105,6 +107,7 @@ For $i = 0 To UBound($tests, 1) - 1 Step +1
         $expected = $tests[$i][1]
 
         If (Not ($exitCode = $tests[$i][2])) Or Not (extractActual($actual) == $expected) Then
+            $failures += 1
             ConsoleWrite(StringFormat('"%s" Failed.\n', $file))
             If (Not ($exitCode = $tests[$i][2])) Then ConsoleWrite(stringformat("    Exit code %s, expected %s\n", $exitCode, $tests[$i][2]))
             If Not (extractActual($actual) == $expected) Then
@@ -116,6 +119,8 @@ For $i = 0 To UBound($tests, 1) - 1 Step +1
         ConsoleWrite(StringFormat("Problem when trying to run test script @error: %s, ""%s""\n", @error, $tests[$i][0]))
     EndIf
 Next
+
+ConsoleWrite(StringFormat("\nTests: %s, Assertions: %s, Failures:%s\n", UBound($tests, 1), $tMapping.count, $failures))
 
 If Not $success Then Exit 1
 Exit 0
