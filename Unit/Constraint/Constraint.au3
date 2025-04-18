@@ -38,7 +38,8 @@ Func Au3UnitConstraintConstraint_Fail($constraint, $other, $description, $compar
 		If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError(StringFormat("Constraint.au3:%s ERROR: function %s call failure!\n", @ScriptLineNumber, $comparisonFailure[0]&"_toString"))
 	EndIf
 
-	Local $additionalFailureDescription = Call("Au3UnitConstraint" & $constraint & "_AdditionalFailureDescription", $other)
+	Local $additionalFailureDescription = Call("Au3UnitConstraint" & $constraint & "_AdditionalFailureDescription", $other, $passedToContraint)
+	If @error = 0xDEAD And @extended = 0xBEEF Then $additionalFailureDescription = Call("Au3UnitConstraint" & $constraint & "_AdditionalFailureDescription", $other)
 	If @error = 0xDEAD And @extended = 0xBEEF Then $additionalFailureDescription = Call("Au3UnitConstraintConstraint_AdditionalFailureDescription", $other)
 
 	If $additionalFailureDescription Then $failureDescription &= @CRLF & $additionalFailureDescription
