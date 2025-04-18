@@ -1,5 +1,8 @@
 #include-once
+#include <AutoItConstants.au3>
 #include "..\Differ.au3"
+
+; https://github.com/sebastianbergmann/diff/blob/ca5ab397c8c0a4fdb4408492e4f8216424b2737a/src/Output/UnifiedDiffOutputBuilder.php
 
 #Region Helper Functions
     Func Is_Au3DiffOutputUnifiedDiffOutputBuilder($this)
@@ -46,26 +49,34 @@ Func Au3DiffOutputUnifiedDiffOutputBuilder_writeDiffHunks($this, ByRef $output, 
     Local $upperLimit = UBound($diff, 1)
 
     If 0 == ($diff[$upperLimit - 1])[1] Then
-        ;If Not StringRegExp($diff[$upperLimit - 1][0], "\n$") Then array_splice($diff, $upperLimit, 0, [["\n\\ No newline at end of file\n", Differ::NO_LINE_END_EOF_WARNING]])
+        If Not StringRegExp(($diff[$upperLimit - 1])[0], "\n$") Then
+            Redim $diff[$upperLimit + 1]
+            Local $_newElement = [StringFormat("\n\\ No newline at end of file\n"), $Au3DiffDiffer_NO_LINE_END_EOF_WARNING]
+            $diff[$upperLimit] = $_newElement
+        EndIf
     Else
         ; search back for the last `+` and `-` line,
         ; check if has trailing linebreak, else add under it warning under it
+        Local $toFind1 = True, $toFind2 = True
 
-        #cs
-        $toFind = [1 => true, 2 => true];
-        for ($i = $upperLimit - 1; $i >= 0; --$i) {
-            if (isset($toFind[$diff[$i][1]])) {
-                unset($toFind[$diff[$i][1]]);
-                $lc = \substr($diff[$i][0], -1);
-                if ("\n" !== $lc) {
-                    \array_splice($diff, $i + 1, 0, [["\n\\ No newline at end of file\n", Differ::NO_LINE_END_EOF_WARNING]]);
-                }
-                if (!\count($toFind)) {
-                    break;
-                }
-            }
-        }
-        #ce
+        For $i = $upperLimit - 1 To 0 Step -1
+            If Eval("toFind" & ($diff[$i])[1]) = True Then
+                Assign("toFind" & ($diff[$i])[1], False, $ASSIGN_EXISTFAIL)
+
+                If Not StringRegExp(($diff[$i])[0], "\n$") Then
+                    Redim $diff[UBound($diff, 1) + 1]
+                    If UBound($diff, 1) > ($i + 1) Then
+                        For $j = UBound($diff, 1) - 2 To $i + 1 Step -1
+                            $diff[$j + 1] = $diff[$j]
+                        Next
+                    EndIf
+                    Local $_newElement = [StringFormat("\n\\ No newline at end of file\n"), $Au3DiffDiffer_NO_LINE_END_EOF_WARNING]
+                    $diff[$i + 1] = $_newElement
+                EndIf
+
+                If $toFind1 = False And $toFind2 = False Then ExitLoop
+            EndIf
+        Next
     EndIf
 
     ; write hunks to output buffer
