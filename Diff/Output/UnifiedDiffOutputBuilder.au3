@@ -140,6 +140,8 @@ Func Au3DiffOutputUnifiedDiffOutputBuilder_writeDiffHunks($this, ByRef $output, 
         If $Au3DiffDiffer_REMOVED == $entry[1] Then $fromRange -= 1
     Next
 
+    If $i > 0 Then $i -= 1 ; The PHP source uses foreach loop. Using a for loop in AutoIt, makes this one off. This is a fix for an error created because of this discrepancy.
+
     If False == $hunkCapture Then Return Null
 
     ; we end here when cutoff (commonLineThreshold) was not reached, but we where capturing a hunk,
