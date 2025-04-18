@@ -113,7 +113,7 @@ For $i = 0 To UBound($tests, 1) - 1 Step +1
             $success = False
         EndIf
     Else
-        ConsoleWrite(StringFormat("Problem when trying to run test script @error: %s, ""%s""", @error, $tests[$i][0]))
+        ConsoleWrite(StringFormat("Problem when trying to run test script @error: %s, ""%s""\n", @error, $tests[$i][0]))
     EndIf
 Next
 
