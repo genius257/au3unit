@@ -191,13 +191,13 @@ Func Au3DiffOutputUnifiedDiffOutputBuilder_writeHunk($this, $diff, $diffStartInd
     EndIf
 
     For $i = $diffStartIndex To $diffEndIndex - 1 Step +1
-        If ($diff[$i])[1] == $Au3DiffDiffer_ADDED Then
+        If ($diff[$i])[1] = $Au3DiffDiffer_ADDED Then
             $output &= '+' & ($diff[$i])[0]
-        ElseIf ($diff[$i])[1] == $Au3DiffDiffer_REMOVED Then
+        ElseIf ($diff[$i])[1] = $Au3DiffDiffer_REMOVED Then
             $output &= '-' & ($diff[$i])[0]
-        ElseIf ($diff[$i])[1] == $Au3DiffDiffer_OLD Then
+        ElseIf ($diff[$i])[1] = $Au3DiffDiffer_OLD Then
             $output &= ' ' & ($diff[$i])[0]
-        ElseIf ($diff[$i])[1] == $Au3DiffDiffer_NO_LINE_END_EOF_WARNING Then
+        ElseIf ($diff[$i])[1] = $Au3DiffDiffer_NO_LINE_END_EOF_WARNING Then
             $output &= StringFormat("\n")
         Else ; Not changed (old) Differ::OLD or Warning Differ::DIFF_LINE_END_WARNING
             $output &= ' ' & ($diff[$i])[0]
