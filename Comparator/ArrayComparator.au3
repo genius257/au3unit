@@ -47,7 +47,7 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         If @error <> 0 Then
             $expectedAsString &= StringFormat( _
                 "    %s => %s\n", _
-                Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
+                Call($Au3ComparatorArrayComparatorExporter&"_export", Au3ComparatorArrayComparator_exportKey($key)), _
                 Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", $val2) _
             )
             $equal = False
@@ -77,13 +77,13 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         If $error <> 0 And Is_Au3ComparatorComparisonFailure($e) Then
             $expectedAsString &= StringFormat( _
                 "    %s => %s\n", _
-                Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
+                Call($Au3ComparatorArrayComparatorExporter&"_export", Au3ComparatorArrayComparator_exportKey($key)), _
                 Call($e[0]&"_getExpectedAsString", $e) ? Au3ComparatorArrayComparator_indent(Call($e[0]&"_getExpectedAsString", $e)) : Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", Call($e[0]&"_getExpected", $e)) _
             )
 
             $actualAsString &= StringFormat( _
                 "    %s => %s\n", _
-                Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
+                Call($Au3ComparatorArrayComparatorExporter&"_export", Au3ComparatorArrayComparator_exportKey($key)), _
                 Call($e[0]&"_getActualAsString", $e) ? Au3ComparatorArrayComparator_indent(Call($e[0]&"_getActualAsString", $e)) : Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", Call($e[0]&"_getActual", $e)) _
             )
 
@@ -91,13 +91,13 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         ElseIf $error = 0 Then
             $expectedAsString &= StringFormat( _
                 "    %s => %s\n", _
-                Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
+                Call($Au3ComparatorArrayComparatorExporter&"_export", Au3ComparatorArrayComparator_exportKey($key)), _
                 Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", $val2) _
             )
 
             $actualAsString &= StringFormat( _
                 "    %s => %s\n", _
-                Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
+                Call($Au3ComparatorArrayComparatorExporter&"_export", Au3ComparatorArrayComparator_exportKey($key)), _
                 Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", $val1) _
             )
         Else
@@ -130,7 +130,7 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         $val1 = Execute(StringFormat("$remaining[%s]", $key))
         $actualAsString &= StringFormat( _
             "    %s => %s\n", _
-            Call($Au3ComparatorArrayComparatorExporter&"_export", $key), _
+            Call($Au3ComparatorArrayComparatorExporter&"_export", Au3ComparatorArrayComparator_exportKey($key)), _
             Call($Au3ComparatorArrayComparatorExporter&"_shortenedExport", $val1) _
         )
         $equal = False
@@ -165,4 +165,8 @@ EndFunc
 
 Func Au3ComparatorArrayComparator_indent($lines)
     Return StringRegExpReplace(StringRegExpReplace($lines, "\n", "\0    "), "(?(DEFINE)(?<range>[ \t\n\r\0\x0B]*))(^(?&range)|(?&range)$)", "")
+EndFunc
+
+Func Au3ComparatorArrayComparator_exportKey($key)
+    Return StringIsDigit($key) ? Number($key) : '[' & $key & ']'
 EndFunc
