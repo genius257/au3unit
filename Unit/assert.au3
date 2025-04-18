@@ -115,13 +115,11 @@ Func assertNotNull($actual, $message = "", $line = @ScriptLineNumber)
 	Local $passedToContraint = ["IsNull", $actual]
 	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
-#cs
 
-
-Func assertStringMatchesFormat($format, $string, $message = "")
-
+#include "Constraint\String\StringMatchesFormatDescription.au3"
+Func assertStringMatchesFormat($format, $string, $message = "", $line = @ScriptLineNumber)
+	assertThat($string, "StringMatchesFormatDescription", $message, $line, $format)
 EndFunc
-#ce
 
 #include "Constraint\IsIdentical.au3"
 Func assertSame($expected, $actual, $message = "", $line = @ScriptLineNumber)
