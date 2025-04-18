@@ -32,7 +32,7 @@ Func Au3ComparatorScalarComparator_assertEquals($expected, $actual, $delta = 0.0
             $actualToCompare   = StringLower($actualToCompare);
         EndIf
     EndIf
-    if ((Not $expectedToCompare == $actualToCompare) And isString($expected) And isString($actual)) Then
+    if (Not ($expectedToCompare == $actualToCompare) And isString($expected) And isString($actual)) Then
         Return SetError(1, 0, Au3ComparatorComparisonFailure( _
             $expected, _
             $actual, _
