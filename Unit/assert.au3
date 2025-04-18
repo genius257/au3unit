@@ -131,24 +131,26 @@ Func assertNotSame($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
 
-#cs
-Func assertStringEndsWith($suffix, $string, $message = "")
-
+#include "Constraint\String\StringEndsWith.au3"
+Func assertStringEndsWith($suffix, $string, $message = "", $line = @ScriptLineNumber)
+	assertThat($string, "StringEndsWith", $message, $line, $suffix)
 EndFunc
 
-Func assertStringEndsNotWith($suffix, $string, $message = "")
-
-EndFunc
-#ce
-#cs
-Func assertStringStartsWith($prefix, $string, $message = "")
-
+Func assertStringEndsNotWith($suffix, $string, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = ["StringEndsWith", $suffix]
+	assertThat($string, "LogicalNot", $message, $line, $passedToContraint)
 EndFunc
 
-Func assertStringStartsNotWith($prefix, $string, $message = "")
-
+#include "Constraint\String\StringStartsWith.au3"
+Func assertStringStartsWith($prefix, $string, $message = "", $line = @ScriptLineNumber)
+	assertThat($string, "StringStartsWith", $message, $line, $prefix)
 EndFunc
-#ce
+
+Func assertStringStartsNotWith($prefix, $string, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = ["StringStartsWith", $prefix]
+	assertThat($string, "LogicalNot", $message, $line, $passedToContraint)
+EndFunc
+
 #include "Constraint\Boolean\IsTrue.au3"
 Func assertTrue($condition, $message = "", $line = @ScriptLineNumber)
 	assertThat($condition, "IsTrue", $message, $line, $condition)
