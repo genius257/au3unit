@@ -1,4 +1,5 @@
 #include-once
+#include "DoubleComparator.au3"
 #include "NumericComparator.au3"
 #include "ObjectComparator.au3"
 #include "ResourceComparator.au3"
@@ -66,7 +67,7 @@ Func Au3ComparatorFactory_registerDefaultComparators()
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorResourceComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorArrayComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorMapComparator')
-    ;Au3ComparatorFactory_registerDefaultComparator('DoubleComparator')
+    Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorDoubleComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorNumericComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorScalarComparator')
     Au3ComparatorFactory_registerDefaultComparator('Au3ComparatorTypeComparator')
