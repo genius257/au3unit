@@ -15,7 +15,7 @@ Func Au3UnitConstraintIsEqual_Matches($other, $exspected, $description)
 
 	Local $comparator = Au3ComparatorFactory_getComparatorFor($exspected, $other)
 	If @error <> 0 Then ConsoleWriteError("no comparator found!"&@CRLF)
-	Local $e = Call($comparator&"_assertEquals", $exspected, $other) ;FIXME: expect array, to allow comparator to return messsage and assertion result
+	Local $e = Call($comparator&"_assertEquals", $exspected, $other)
 	Local $error = @error
 	If $error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError($comparator&"_assertEquals function is missing"&@CRLF)
 	If $error <> 0 And Is_Au3ComparatorComparisonFailure($e) Then
