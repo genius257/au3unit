@@ -1,10 +1,10 @@
 #include-once
+#include "ArrayComparator.au3"
 #include "DoubleComparator.au3"
+#include "MapComparator.au3"
 #include "NumericComparator.au3"
 #include "ObjectComparator.au3"
 #include "ResourceComparator.au3"
-#include "ArrayComparator.au3"
-#include "MapComparator.au3"
 #include "ScalarComparator.au3"
 #include "TypeComparator.au3"
 #include "..\PHP\RuntimeException.au3"
