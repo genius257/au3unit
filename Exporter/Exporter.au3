@@ -19,7 +19,7 @@ Func Au3ExporterExporter_recursiveExport(ByRef $value, $indentation, $processed 
 	if IsString($value) Then
 		If StringRegExp($value, "[^\x09-\x0d\x1b\x20-\xff]") Then Return "Binary String: 0x" & $value ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php#L235
 
-		Return "'" & StringRegExpReplace($value, "(\r\n|\n\r|\r)", @CRLF) & "'"
+		Return "'" & StringRegExpReplace($value, "(\r\n|\n\r|\r)", @LF) & "'"
 	EndIf
 
 	Local $whitespace = StringRepeat(" ", 4 * $indentation)
