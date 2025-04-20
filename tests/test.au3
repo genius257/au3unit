@@ -20,7 +20,7 @@ Global $tests = [ _
     ["constraints\EqualsCanonicalizing_Success.au3", "", 0], _
     ["constraints\EqualsCanonicalizing_Failure.au3", StringFormat("Failed asserting that two arrays are equal.\n--- Expected\n+++ Actual\n@@ @@\n Array (\n-    0 => 1\n-    1 => 2\n-    2 => 3\n+    0 => 0\n+    1 => 1\n+    2 => 2\n+    3 => 3\n )"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\EqualsIgnoringCase_Success.au3", "", 0], _
-    ["constraints\EqualsIgnoringCase_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\EqualsIgnoringCase_Failure.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n-'foo'\n+'BAR'"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\EqualsWithDelta_Success.au3", "", 0], _
     ["constraints\EqualsWithDelta_Failure.au3", "Failed asserting that 1.5 matches expected 1.0.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\FileEquals_Success.au3", "", 0], _
