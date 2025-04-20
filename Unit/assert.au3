@@ -168,3 +168,8 @@ EndFunc
 Func assertEqualsCanonicalizing($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsEqualCanonicalizing", $message, $line, $expected)
 EndFunc
+
+#include "Constraint\Equality\IsEqualIgnoringCase.au3"
+Func assertEqualsIgnoringCase($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsEqualIgnoringCase", $message, $line, $expected)
+EndFunc
