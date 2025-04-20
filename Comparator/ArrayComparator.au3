@@ -71,7 +71,7 @@ Func Au3ComparatorArrayComparator_assertEquals($expected, $actual, $delta = 0.0,
         EndIf
         $comparator = Au3ComparatorFactory_getComparatorFor($val2, $val1)
         If @error <> 0 Then ConsoleWriteError(StringFormat("ArrayComparator.au3:%s ERROR: no comparator found!\n", @ScriptLineNumber))
-        $e = Call($comparator&"_assertEquals", $val2, $val1)
+        $e = Call($comparator&"_assertEquals", $val2, $val1, $delta, $canonicalize, $ignoreCase)
         If @error = 0xDEAD And @extended = 0xBEEF Then ConsoleWriteError($comparator&"_assertEquals function is missing"&@CRLF)
         Local $error = @error
         If $error <> 0 And Is_Au3ComparatorComparisonFailure($e) Then
