@@ -12,7 +12,7 @@ EndFunc
 Func Au3ComparatorScalarComparator_isScalar($variable)
     ; https://www.php.net/manual/en/function.is-scalar.php
 
-    Return IsInt($variable) Or IsFloat($variable) Or IsString($variable) Or IsBool($variable)
+    Return IsInt($variable) Or VarGetType($variable) == "Double" Or IsString($variable) Or IsBool($variable)
 EndFunc
 
 Func Au3ComparatorScalarComparator_accepts($expected, $actual)

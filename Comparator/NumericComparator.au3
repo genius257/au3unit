@@ -11,7 +11,7 @@ Func Au3ComparatorNumericComparator_accepts($expected, $actual)
     ; all numerical values, but not if one of them is a double
     ; or both of them are strings
     Return Au3ComparatorNumericComparator_isNumeric($expected) And Au3ComparatorNumericComparator_isNumeric($actual) And _
-        Not (IsFloat($expected) Or IsFloat($actual)) And _
+        Not (VarGetType($expected) == "Double" Or VarGetType($actual) == "Double") And _
         Not (IsString($expected) And IsString($actual))
 EndFunc
 

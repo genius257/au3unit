@@ -12,7 +12,7 @@ Func Au3ExporterExporter_recursiveExport(ByRef $value, $indentation, $processed 
 
 	If $value == False Then Return "false"
 
-	If IsFloat($value) And Int($value) == $value Then Return StringFormat("%s.0", $value)
+	If VarGetType($value) == "Double" And Int($value) == $value Then Return StringFormat("%s.0", $value)
 
 	If IsPtr($value) Or IsHWnd($value) Then Return StringFormat("resource(0x%.8X) of type (%s)", $value, VarGetType($value))
 

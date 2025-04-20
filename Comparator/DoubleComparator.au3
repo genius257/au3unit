@@ -11,7 +11,7 @@ Func Au3ComparatorDoubleComparator_setFactory($factory)
 EndFunc
 
 Func Au3ComparatorDoubleComparator_accepts($expected, $actual)
-    Return (IsFloat($expected) or IsFloat($actual)) And Au3ComparatorNumericComparator_isNumeric($expected) And Au3ComparatorNumericComparator_isNumeric($actual)
+    Return (VarGetType($expected) == "Double" or VarGetType($actual) == "Double") And Au3ComparatorNumericComparator_isNumeric($expected) And Au3ComparatorNumericComparator_isNumeric($actual)
 EndFunc
 
 Func Au3ComparatorDoubleComparator_assertEquals($expected, $actual, $delta = 0.0, $canonicalize = False, $ignoreCase = False)
