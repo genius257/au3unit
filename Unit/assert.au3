@@ -1,5 +1,8 @@
 #include-once
 ; https://github.com/sebastianbergmann/phpunit/blob/7.2/src/Framework/Assert.php
+; WARNING 7.2 is missing some wanted assert function and creates special assertions that makes class istances with options passed to constraint constructors.
+; As a result, 12.1.2 will be used as a reference from now on:
+; https://github.com/sebastianbergmann/phpunit/blob/12.1.2/src/Framework/Assert.php
 
 #include <WinAPI.au3>
 #include <WinAPIFiles.au3>
@@ -159,4 +162,9 @@ EndFunc
 Func assertNotTrue($condition, $message = "", $line = @ScriptLineNumber)
 	Local $passedToContraint = ["IsTrue", $condition]
 	assertThat($condition, "LogicalNot", $message, $line, $passedToContraint)
+EndFunc
+
+#include "Constraint\Equality\IsEqualCanonicalizing.au3"
+Func assertEqualsCanonicalizing($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsEqualCanonicalizing", $message, $line, $expected)
 EndFunc
