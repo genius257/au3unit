@@ -126,7 +126,7 @@ If Not $success Then Exit 1
 Exit 0
 
 Func extractActual($string)
-    Return StringRegExpReplace($string, "\r?\n.*\r?\n$", "")
+    Return StringRegExpReplace($string, "\r?\n[^\n]+\r?\n$", "")
 EndFunc
 
 Func au3unit_unixTimestamp($sDateTime = 0)
