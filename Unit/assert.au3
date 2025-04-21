@@ -179,3 +179,15 @@ Func assertEqualsWithDelta($expected, $actual, $delta, $message = "", $line = @S
 	Local $passedToContraint = [$expected, $delta]
 	assertThat($actual, "IsEqualWithDelta", $message, $line, $passedToContraint)
 EndFunc
+
+Func assertFileEquals($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	assertFileExists($expected, $message, $line)
+	assertFileExists($actual, $message, $line)
+
+	assertThat(FileRead($actual), "IsEqual", $message, $line, FileRead($expected))
+EndFunc
+
+#include "Constraint\Filesystem\FileExists.au3"
+Func assertFileExists($filename, $message = "", $line = @ScriptLineNumber)
+	assertThat($filename, "FileExists", $message = "", $line)
+EndFunc
