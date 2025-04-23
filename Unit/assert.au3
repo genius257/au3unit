@@ -191,3 +191,8 @@ EndFunc
 Func assertFileExists($filename, $message = "", $line = @ScriptLineNumber)
 	assertThat($filename, "FileExists", $message = "", $line)
 EndFunc
+
+#include "Constraint\Traversable\MapHasKey.au3"
+Func assertMapHasKey($key, $map, $message = "", $line = @ScriptLineNumber)
+	assertThat($map, "MapHasKey", $message, $line, $key)
+EndFunc
