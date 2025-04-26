@@ -18,9 +18,7 @@ Func Au3ExporterExporter_recursiveExport(ByRef $value, $indentation, $processed 
 	If IsPtr($value) Or IsHWnd($value) Then Return StringFormat("resource(0x%.8X) of type (%s)", $value, VarGetType($value))
 
 	if IsString($value) Then
-		If StringRegExp($value, "[^\x09-\x0d\x1b\x20-\xff]") Then Return "Binary String: 0x" & $value ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php#L235
-
-		Return "'" & StringRegExpReplace($value, "(\r\n|\n\r|\r)", @LF) & "'"
+		Return Au3ExporterExporter_exportString($value)
 	EndIf
 
 	Local $whitespace = _StringRepeat(" ", 4 * $indentation)
@@ -80,11 +78,11 @@ Func Au3ExporterExporter_shortenedRecursiveExport()
 	;FIXME
 EndFunc
 
-Func Au3ExporterExporter_shortenedExport($value)
+Func Au3ExporterExporter_shortenedExport($value, $maxLengthForStrings = 40)
 	If IsString($value) Then
-		Local $string = Au3ExporterExporter_export($value)
-		If StringLen($string) > 40 Then $string = StringMid($string, 1, 30) & '...' & StringRight($string, 7)
-		Return StringRegExpReplace($string, "\n", "\\n")
+		Local $string = StringReplace(Au3ExporterExporter_exportString($value), @LF, "")
+		If StringLen($string) > $maxLengthForStrings Then $string = StringMid($string, 1, $maxLengthForStrings - 10) & '...' & StringRight($string, 7)
+		Return $string
 	EndIf
 
 	If IsArray($value) Then
@@ -95,4 +93,23 @@ Func Au3ExporterExporter_shortenedExport($value)
 	EndIf
 
 	Return Au3ExporterExporter_export($value)
+EndFunc
+
+; https://github.com/sebastianbergmann/exporter/blob/7.0.0/src/Exporter.php#L365-L383
+Func Au3ExporterExporter_exportString($value)
+	; Match for most non-printable chars somewhat taking multibyte chars into account
+	If StringRegExp($value, "[^\x09-\x0d\x1b\x20-\xff]") Then Return 'Binary String: ' & StringToBinary($value)
+
+	Local $replacePairs = [ _
+		[StringFormat("\r\n"), '\r\n' & @LF], _
+		[StringFormat("\n\r"), '\n\r' & @LF], _
+		[StringFormat("\r"), '\r' & @LF], _
+		[StringFormat("\n"), '\n' & @LF] _
+	]
+
+	For $i = 0 To UBound($replacePairs, 1) - 1 Step +1
+		$value = StringReplace($value, $replacePairs[$i][0], $replacePairs[$i][1])
+	Next
+
+	Return "'" & $value & "'"
 EndFunc
