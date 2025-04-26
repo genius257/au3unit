@@ -26,17 +26,11 @@ Global $tests = [ _
     ["constraints\FileEquals_Success.au3", "", 0], _
     ["constraints\FileEquals_Failure.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n-'expected\\n\n+'actual\\n\n '"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\MapHasKey_Success.au3", "", 0], _
-    ["constraints\MapHasKey_Failure.au3", "Failed asserting that a map has the key 'foo'.", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\MapHasKey_Failure.au3", "Failed asserting that a map has the key 'foo'.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\Count_Success.au3", "", 0], _
+    ["constraints\Count_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\Contains_Success.au3", "", 0], _
-    ["constraints\Contains_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
-    ["constraints\ContainsOnly_Success.au3", "", 0], _
-    ["constraints\ContainsOnly_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
-    ["constraints\MapHasProperty_Success.au3", "", 0], _
-    ["constraints\MapHasProperty_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
-    ["constraints\Count_Success.au3", "", 0], _
-    ["constraints\Count_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\SameSize_Success.au3", "", 0], _
     ["constraints\SameSize_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Empty_Success.au3", "", 0], _

@@ -196,3 +196,9 @@ EndFunc
 Func assertMapHasKey($key, $map, $message = "", $line = @ScriptLineNumber)
 	assertThat($map, "MapHasKey", $message, $line, $key)
 EndFunc
+
+#include "Constraint\Cardinality\Count.au3"
+Func assertCount($expectedCount, $haystack, $dimension = 1, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = [$expectedCount, $dimension]
+	assertThat($haystack, "Count", $message, $line, $passedToContraint)
+EndFunc
