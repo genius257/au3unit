@@ -24,7 +24,7 @@ Global $tests = [ _
     ["constraints\EqualsWithDelta_Success.au3", "", 0], _
     ["constraints\EqualsWithDelta_Failure.au3", "Failed asserting that 1.5 matches expected 1.0.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\FileEquals_Success.au3", "", 0], _
-    ["constraints\FileEquals_Failure.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n-'expected\\n\n+'actual\\n\n'"), $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\FileEquals_Failure.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n-'expected\\n\n+'actual\\n\n '"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\MapHasKey_Success.au3", "", 0], _
     ["constraints\MapHasKey_Failure.au3", "Failed asserting that a map has the key 'foo'.", $AU3UNIT_EXITCODE_FAIL] _
 ]
