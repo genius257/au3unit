@@ -1,4 +1,5 @@
 #include-once
+#include <String.au3>
 ;https://github.com/sebastianbergmann/exporter/blob/2.0/src/Exporter.php
 
 Func Au3ExporterExporter_export($value, $indentation = 0)
@@ -22,7 +23,7 @@ Func Au3ExporterExporter_recursiveExport(ByRef $value, $indentation, $processed 
 		Return "'" & StringRegExpReplace($value, "(\r\n|\n\r|\r)", @LF) & "'"
 	EndIf
 
-	Local $whitespace = StringRepeat(" ", 4 * $indentation)
+	Local $whitespace = _StringRepeat(" ", 4 * $indentation)
 
 ;~ 	If Not $processed Then $processed = new Context
 
@@ -94,10 +95,4 @@ Func Au3ExporterExporter_shortenedExport($value)
 	EndIf
 
 	Return Au3ExporterExporter_export($value)
-EndFunc
-
-Func StringRepeat($sChar, $nCount); https://www.autoitscript.com/forum/topic/140190-stringrepeat-very-fast-using-memset/
-    $tBuffer = DLLStructCreate("char[" & $nCount & "]")
-    DllCall("msvcrt.dll", "ptr:cdecl", "memset", "ptr", DLLStructGetPtr($tBuffer), "int", Asc($sChar), "int", $nCount)
-    Return DLLStructGetData($tBuffer, 1)
 EndFunc
