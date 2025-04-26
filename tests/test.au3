@@ -28,7 +28,7 @@ Global $tests = [ _
     ["constraints\MapHasKey_Success.au3", "", 0], _
     ["constraints\MapHasKey_Failure.au3", "Failed asserting that a map has the key 'foo'.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Count_Success.au3", "", 0], _
-    ["constraints\Count_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\Count_Failure.au3", "Failed asserting that actual size 1 matches expected size 0.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
     ["constraints\SameSize_Success.au3", "", 0], _
