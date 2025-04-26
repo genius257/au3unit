@@ -120,7 +120,6 @@ If Not $success Then Exit 1
 Exit 0
 
 Func extractActual($string)
-    Return $string; FIXME: remove after debugging
     Return StringRegExpReplace($string, "\r?\n[^\n]+\r?\n$", "")
 EndFunc
 
