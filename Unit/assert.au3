@@ -202,3 +202,8 @@ Func assertCount($expectedCount, $haystack, $dimension = 1, $message = "", $line
 	Local $passedToContraint = [$expectedCount, $dimension]
 	assertThat($haystack, "Count", $message, $line, $passedToContraint)
 EndFunc
+
+#include "Constraint\Cardinality\SameSize.au3"
+Func assertSameSize($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "SameSize", $message, $line, $expected)
+EndFunc
