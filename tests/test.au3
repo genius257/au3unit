@@ -33,8 +33,6 @@ Global $tests = [ _
     ["constraints\SameSize_Failure.au3", "Failed asserting that actual size [1] matches expected size [2].", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\SameSize_Success.au3", "", 0], _
-    ["constraints\SameSize_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Empty_Success.au3", "", 0], _
     ["constraints\Empty_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\GreaterThan_Success.au3", "", 0], _
