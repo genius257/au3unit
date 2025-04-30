@@ -30,11 +30,11 @@ Global $tests = [ _
     ["constraints\Count_Success.au3", "", 0], _
     ["constraints\Count_Failure.au3", "Failed asserting that actual size 1 matches expected size 0.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\SameSize_Success.au3", "", 0], _
-    ["constraints\SameSize_Failure.au3", "Failed asserting that actual size [1] matches expected size [2].", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\SameSize_Failure.au3", "Failed asserting that actual size [1] matches expected size [2].", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\Empty_Success.au3", "", 0], _
+    ["constraints\Empty_Failure.au3", "Failed asserting that an array is empty.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\Empty_Success.au3", "", 0], _
-    ["constraints\Empty_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\GreaterThan_Success.au3", "", 0], _
     ["constraints\GreaterThan_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\GreaterThanOrEqual_Success.au3", "", 0], _

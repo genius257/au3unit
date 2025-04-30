@@ -207,3 +207,8 @@ EndFunc
 Func assertSameSize($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "SameSize", $message, $line, $expected)
 EndFunc
+
+#include "Constraint\Cardinality\IsEmpty.au3"
+Func assertEmpty($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsEmpty", $message, $line)
+EndFunc
