@@ -34,11 +34,11 @@ Global $tests = [ _
     ["constraints\Empty_Success.au3", "", 0], _
     ["constraints\Empty_Failure.au3", "Failed asserting that an array is empty.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\GreaterThan_Success.au3", "", 0], _
-    ["constraints\GreaterThan_Failure.au3", "Failed asserting that 1 is greater than 2.", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\GreaterThan_Failure.au3", "Failed asserting that 1 is greater than 2.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\GreaterThanOrEqual_Success.au3", "", 0], _
+    ["constraints\GreaterThanOrEqual_Failure.au3", "Failed asserting that 1 is equal to 2 or is greater than 2.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\GreaterThanOrEqual_Success.au3", "", 0], _
-    ["constraints\GreaterThanOrEqual_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\LessThan_Success.au3", "", 0], _
     ["constraints\LessThan_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\LessThanOrEqual_Success.au3", "", 0], _
