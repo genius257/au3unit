@@ -212,3 +212,7 @@ EndFunc
 Func assertEmpty($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsEmpty", $message, $line)
 EndFunc
+
+Func assertIsArray($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "array")
+EndFunc
