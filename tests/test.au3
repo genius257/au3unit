@@ -38,11 +38,11 @@ Global $tests = [ _
     ["constraints\GreaterThanOrEqual_Success.au3", "", 0], _
     ["constraints\GreaterThanOrEqual_Failure.au3", "Failed asserting that 1 is equal to 2 or is greater than 2.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\LessThan_Success.au3", "", 0], _
-    ["constraints\LessThan_Failure.au3", "Failed asserting that 2 is less than 1.", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\LessThan_Failure.au3", "Failed asserting that 2 is less than 1.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\LessThanOrEqual_Success.au3", "", 0], _
+    ["constraints\LessThanOrEqual_Failure.au3", "Failed asserting that 2 is equal to 1 or is less than 1.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\LessThanOrEqual_Success.au3", "", 0], _
-    ["constraints\LessThanOrEqual_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsArray_Success.au3", "", 0], _
     ["constraints\IsArray_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsMap_Success.au3", "", 0], _
