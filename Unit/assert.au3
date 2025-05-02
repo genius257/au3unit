@@ -105,8 +105,8 @@ Func assertLessThan($maximum, $actual, $message = "", $line = @ScriptLineNumber)
 EndFunc
 
 Func assertLessThanOrEqual($maximum, $actual, $message = "", $line = @ScriptLineNumber)
-	Local $passedToContraint = [["IsEqual", $maximum],["LessThan", $maximum]]
-	assertThat($actual, "LogicalOr", $message, $line, $passedToContraint)
+	Local $passedToContraint = [["IsEqual", $actual],["LessThan", $actual]]
+	assertThat($maximum, "LogicalOr", $message, $line, $passedToContraint)
 EndFunc
 
 #include "Constraint\IsNull.au3"
