@@ -224,3 +224,7 @@ EndFunc
 Func assertIsBool($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "bool")
 EndFunc
+
+Func assertIsCallable($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "callable")
+EndFunc
