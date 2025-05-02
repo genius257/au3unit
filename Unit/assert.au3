@@ -216,3 +216,7 @@ EndFunc
 Func assertIsArray($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "array")
 EndFunc
+
+Func assertIsMap($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "map")
+EndFunc
