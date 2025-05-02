@@ -48,11 +48,11 @@ Global $tests = [ _
     ["constraints\IsBool_Success.au3", "", 0], _
     ["constraints\IsBool_Failure.au3", "Failed asserting that null is of type bool.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsCallable_Success.au3", "", 0], _
-    ["constraints\IsCallable_Failure.au3", "Failed asserting that null is of type callable.", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\IsCallable_Failure.au3", "Failed asserting that null is of type callable.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\IsFloat_Success.au3", "", 0], _
+    ["constraints\IsFloat_Failure.au3", "Failed asserting that null is of type float.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\IsDouble_Success.au3", "", 0], _
-    ["constraints\IsDouble_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsInt_Success.au3", "", 0], _
     ["constraints\IsInt_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsIterable_Success.au3", "", 0], _

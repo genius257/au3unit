@@ -228,3 +228,7 @@ EndFunc
 Func assertIsCallable($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "callable")
 EndFunc
+
+Func assertIsFloat($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "float")
+EndFunc
