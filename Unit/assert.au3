@@ -220,3 +220,7 @@ EndFunc
 Func assertIsMap($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "map")
 EndFunc
+
+Func assertIsBool($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "bool")
+EndFunc
