@@ -91,7 +91,7 @@ Func assertIsNumber($actual, $message = "", $line = @ScriptLineNumber)
 EndFunc
 
 Func assertIsInt($actual, $message = "", $line = @ScriptLineNumber)
-	assertThat($actual, "IsType", $message, $line, "Int")
+	assertThat($actual, "IsType", $message, $line, "int")
 EndFunc
 
 Func assertNotInternalType($expected, $actual, $message = "", $line = @ScriptLineNumber)
