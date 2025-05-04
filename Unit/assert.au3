@@ -240,3 +240,7 @@ EndFunc
 Func assertIsObject($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "object")
 EndFunc
+
+Func assertIsResource($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "resource")
+EndFunc

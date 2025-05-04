@@ -56,11 +56,11 @@ Global $tests = [ _
     ["constraints\IsNumeric_Success.au3", "", 0], _
     ["constraints\IsNumeric_Failure.au3", "Failed asserting that null is of type numeric.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsObject_Success.au3", "", 0], _
-    ["constraints\IsObject_Failure.au3", "Failed asserting that null is of type object.", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\IsObject_Failure.au3", "Failed asserting that null is of type object.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\IsResource_Success.au3", "", 0], _
+    ["constraints\IsResource_Failure.au3", "Failed asserting that null is of type resource.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 #cs
-    ["constraints\IsResource_Success.au3", "", 0], _
-    ["constraints\IsResource_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsScalar_Success.au3", "", 0], _
     ["constraints\IsScalar_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsString_Success.au3", "", 0], _
