@@ -248,3 +248,7 @@ EndFunc
 Func assertIsScalar($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "scalar")
 EndFunc
+
+Func assertIsString($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "string")
+EndFunc

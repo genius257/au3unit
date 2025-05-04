@@ -60,13 +60,10 @@ Global $tests = [ _
     ["constraints\IsResource_Success.au3", "", 0], _
     ["constraints\IsResource_Failure.au3", "Failed asserting that null is of type resource.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsScalar_Success.au3", "", 0], _
-    ["constraints\IsScalar_Failure.au3", "Failed asserting that null is of type scalar.", $AU3UNIT_EXITCODE_FAIL] _
-]
-#cs
+    ["constraints\IsScalar_Failure.au3", "Failed asserting that null is of type scalar.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsString_Success.au3", "", 0], _
-    ["constraints\IsString_Failure.au3", "", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\IsString_Failure.au3", "Failed asserting that null is of type string.", $AU3UNIT_EXITCODE_FAIL] _
 ]
-#ce
 
 Global $sMapping = 'au3unit'&au3unit_unixTimestamp()
 Global $hMapping = _WinAPI_CreateFileMapping(-1, 8, $sMapping)
