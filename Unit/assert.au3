@@ -236,3 +236,7 @@ EndFunc
 Func assertIsNumeric($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "numeric")
 EndFunc
+
+Func assertIsObject($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "object")
+EndFunc
