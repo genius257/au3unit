@@ -36,6 +36,8 @@ Func Au3UnitConstraintIsType_Matches($other, $expected)
 			Return $actual = "Function" Or $actual = "UserFunction"
 		Case "resource"
 			Return $actual = "Ptr"; Ptr, HWnd. Both are resources and AutoIt type returns "Ptr"
+		Case "scalar"
+			Return $actual = "String" Or $actual = "Int32" Or $actual = "Int64" Or $actual = "Double" Or $actual = "Bool"
 		Case "float"
 			$expected = "Double"
 			ContinueCase

@@ -244,3 +244,7 @@ EndFunc
 Func assertIsResource($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "resource")
 EndFunc
+
+Func assertIsScalar($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "scalar")
+EndFunc
