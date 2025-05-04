@@ -15,6 +15,20 @@ Func Au3UnitConstraintIsType_Matches($other, $expected)
 	Switch $expected
 		Case "int"
 			Return $actual = "Int32" Or $actual = "Int64"
+		Case "numeric"
+			; RegExp based on pattern from https://www.php.net/manual/en/language.types.numeric-strings.php
+			If $expected = "String" Then Return StringRegExp($sString, _
+				"(?(DEFINE)" & _
+				"(?<WHITESPACES>\s*)" & _
+				"(?<LNUM>[0-9]+)" & _
+				"(?<DNUM>([0-9]*\.(?&LNUM))|((?&LNUM)\.[0-9]*))" & _
+				"(?<EXPONENT_DNUM>(((?&LNUM)|(?&DNUM))[eE][+-]?(?&LNUM)))" & _
+				"(?<INT_NUM_STRING>(?&WHITESPACES)[+-]?(?&LNUM)(?&WHITESPACES))" & _
+				"(?<FLOAT_NUM_STRING>(?&WHITESPACES)[+-]?((?&EXPONENT_DNUM)|(?&DNUM))(?&WHITESPACES))" & _
+				"(?<NUM_STRING>((?&FLOAT_NUM_STRING)|(?&INT_NUM_STRING)))" & _
+				")^(?&NUM_STRING)$" _; WARNING: PCRE v1 does not handle recursion as well as PCRE2. False negatives are possible, because of this.
+			)
+			ContinueCase
 		Case "number"
 			Return $actual = "Int32" Or $actual = "Int64" Or $actual = "Double"
 		Case "callable"

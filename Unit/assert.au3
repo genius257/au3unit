@@ -232,3 +232,7 @@ EndFunc
 Func assertIsFloat($actual, $message = "", $line = @ScriptLineNumber)
 	assertThat($actual, "IsType", $message, $line, "float")
 EndFunc
+
+Func assertIsNumeric($actual, $message = "", $line = @ScriptLineNumber)
+	assertThat($actual, "IsType", $message, $line, "numeric")
+EndFunc
