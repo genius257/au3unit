@@ -62,7 +62,9 @@ Global $tests = [ _
     ["constraints\IsScalar_Success.au3", "", 0], _
     ["constraints\IsScalar_Failure.au3", "Failed asserting that null is of type scalar.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\IsString_Success.au3", "", 0], _
-    ["constraints\IsString_Failure.au3", "Failed asserting that null is of type string.", $AU3UNIT_EXITCODE_FAIL] _
+    ["constraints\IsString_Failure.au3", "Failed asserting that null is of type string.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\IsNull_Success.au3", "", 0], _
+    ["constraints\IsNull_Failure.au3", "Failed asserting that 'foo' is null.", $AU3UNIT_EXITCODE_FAIL] _
 ]
 
 Global $sMapping = 'au3unit'&au3unit_unixTimestamp()
