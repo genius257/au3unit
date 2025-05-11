@@ -7,6 +7,8 @@
 Global $tests = [ _
     ["constraints\True_Success.au3", "", 0], _
     ["constraints\True_Failure.au3", "Failed asserting that false is true.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\NotTrue_Success.au3", "", 0], _
+    ["constraints\NotTrue_Failure.au3", "Failed asserting that true is not true.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\False_Success.au3", "", 0], _
     ["constraints\False_Failure.au3", "Failed asserting that true is false.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Same_Success.au3", "", 0], _
