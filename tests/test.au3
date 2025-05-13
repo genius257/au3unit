@@ -11,6 +11,8 @@ Global $tests = [ _
     ["constraints\NotTrue_Failure.au3", "Failed asserting that true is not true.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\False_Success.au3", "", 0], _
     ["constraints\False_Failure.au3", "Failed asserting that true is false.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\NotFalse_Success.au3", "", 0], _
+    ["constraints\NotFalse_Failure.au3", "Failed asserting that false is not false.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Same_Success.au3", "", 0], _
     ["constraints\Same_Failure.au3", "Failed asserting that 2204 is identical to '2204'.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Equal_Success.au3", "", 0], _
