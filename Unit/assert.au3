@@ -179,6 +179,11 @@ Func assertEqualsIgnoringCase($expected, $actual, $message = "", $line = @Script
 	assertThat($actual, "IsEqualIgnoringCase", $message, $line, $expected)
 EndFunc
 
+Func assertNotEqualsIgnoringCase($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	Local $passedToContraint = ["IsEqualIgnoringCase", $expected]
+	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
+EndFunc
+
 #include "Constraint\Equality\IsEqualWithDelta.au3"
 Func assertEqualsWithDelta($expected, $actual, $delta, $message = "", $line = @ScriptLineNumber)
 	Local $passedToContraint = [$expected, $delta]

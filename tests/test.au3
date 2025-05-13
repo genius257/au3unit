@@ -32,6 +32,8 @@ Global $tests = [ _
     ["constraints\NotEqualsCanonicalizing_Failure.au3", "Failed asserting that two arrays are not equal.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\EqualsIgnoringCase_Success.au3", "", 0], _
     ["constraints\EqualsIgnoringCase_Failure.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n-'foo'\n+'BAR'"), $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\NotEqualsIgnoringCase_Success.au3", "", 0], _
+    ["constraints\NotEqualsIgnoringCase_Failure.au3", "Failed asserting that two strings are not equal.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\EqualsWithDelta_Success.au3", "", 0], _
     ["constraints\EqualsWithDelta_Failure.au3", "Failed asserting that 1.5 matches expected 1.0.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\FileEquals_Success.au3", "", 0], _
