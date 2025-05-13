@@ -15,6 +15,8 @@ Global $tests = [ _
     ["constraints\NotFalse_Failure.au3", "Failed asserting that false is not false.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Same_Success.au3", "", 0], _
     ["constraints\Same_Failure.au3", "Failed asserting that 2204 is identical to '2204'.", $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\NotSame_Success.au3", "", 0], _
+    ["constraints\NotSame_Failure.au3", "Failed asserting that 2204 is not identical to '2204'.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Equal_Success.au3", "", 0], _
     ["constraints\Equal_Failure.au3", "Failed asserting that 0 matches expected 1.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Equal_Failure2.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n-'bar'\n+'baz'"), $AU3UNIT_EXITCODE_FAIL], _
