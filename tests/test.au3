@@ -23,6 +23,7 @@ Global $tests = [ _
     ["constraints\Equal_Failure3.au3", StringFormat("Failed asserting that two strings are equal.\n--- Expected\n+++ Actual\n@@ @@\n 'foo\\n\n-bar\\n\n+bah\\n\n baz\\n\n '"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Equal_Failure4.au3", StringFormat("Failed asserting that two maps are equal.\n--- Expected\n+++ Actual\n@@ @@\n Map (\n-    'foo' => 'foo'\n-    'bar' => 'bar'\n+    'foo' => 'bar'\n+    'baz' => 'bar'\n )"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\Equal_Failure5.au3", StringFormat("Failed asserting that two arrays are equal.\n--- Expected\n+++ Actual\n@@ @@\n Array (\n     0 => 'a'\n-    1 => 'b'\n-    2 => 'c'\n+    1 => 'c'\n+    2 => 'd'\n )"), $AU3UNIT_EXITCODE_FAIL], _
+    ["constraints\Equal_Failure6.au3", StringFormat("Failed asserting that two arrays are equal.\n--- Expected\n+++ Actual\n@@ @@\n Array (\n     [0][0] => 1\n-    [0][1] => 2\n-    [0][2] => 3\n+    [0][1] => 3\n+    [0][2] => 4\n )"), $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\NotEqual_Success.au3", "", 0], _
     ["constraints\NotEqual_Failure.au3", "Failed asserting that 0 does not match expected 0.", $AU3UNIT_EXITCODE_FAIL], _
     ["constraints\EqualsCanonicalizing_Success.au3", "", 0], _
