@@ -190,6 +190,12 @@ Func assertEqualsWithDelta($expected, $actual, $delta, $message = "", $line = @S
 	assertThat($actual, "IsEqualWithDelta", $message, $line, $passedToContraint)
 EndFunc
 
+Func assertNotEqualsWithDelta($expected, $actual, $delta, $message = "", $line = @ScriptLineNumber)
+	Local $_passedToContraint = [$expected, $delta]
+	Local $passedToContraint = ["IsEqualWithDelta", $_passedToContraint]
+	assertThat($actual, "LogicalNot", $message, $line, $passedToContraint)
+EndFunc
+
 Func assertFileEquals($expected, $actual, $message = "", $line = @ScriptLineNumber)
 	assertFileExists($expected, $message, $line)
 	assertFileExists($actual, $message, $line)
