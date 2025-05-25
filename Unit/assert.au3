@@ -203,6 +203,14 @@ Func assertFileEquals($expected, $actual, $message = "", $line = @ScriptLineNumb
 	assertThat(FileRead($actual), "IsEqual", $message, $line, FileRead($expected))
 EndFunc
 
+Func assertFileNotEquals($expected, $actual, $message = "", $line = @ScriptLineNumber)
+	assertFileExists($expected, $message, $line)
+	assertFileExists($actual, $message, $line)
+
+	Local $passedToContraint = ["IsEqual", FileRead($expected)]
+	assertThat(FileRead($actual), "LogicalNot", $message, $line, $passedToContraint)
+EndFunc
+
 #include "Constraint\Filesystem\FileExists.au3"
 Func assertFileExists($filename, $message = "", $line = @ScriptLineNumber)
 	assertThat($filename, "FileExists", $message = "", $line)
